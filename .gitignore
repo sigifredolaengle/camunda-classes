@@ -6,6 +6,7 @@
 *.aux
 *.log
 *.toc
+*.pdf
 _minted-guion/
 
 
