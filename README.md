@@ -1,7 +1,7 @@
 # camunda-classes
 This a set of examples for implementation Camunda worflows.
 
-##Para compilar un pdf que incluye minted:
+## Para compilar un pdf que incluye minted:
 
 - pdflatex -shell-escape nombre_archivo.tex
 
