@@ -93,7 +93,10 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 Ahora, puedes ejecutar la primera compilación. Haz click derecho sobre pom.xml en el explorador de paquetes y selecciona "Run as / Maven Install".
 
-\subsection{Agregar un "Process Application Class"}
+
+%Falta Agregar las dependencias de esto%%%%%%%%%%%%%
+\subsection{Agregar un "Process Application Class"}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Ahora, necesitas crear un paquete, por ejemplo:\\
 org.camunda.bpm.getstarted.loanapproval. Agrega un "Process Application Class" en el paquete. "Process Application Class" constituye la interfaz entre tu aplicación y el motor de proceso.
@@ -200,6 +203,7 @@ Finalmente, clicka sobre el cuadro a la izquierda del atributo "Executable". Si 
 Cuando estés listo, guarda tus cambios clickando "File / Save File As...". En la ventana que se desplegará, navega hacia donde tienes almacenado tu projecto Eclipse. En ese directorio, avanza hasta la carpeta "src/main/resources" y guarda ahí tu diagrama.\\
 Vuelve a Eclipse. Haz click derecho sobre la carpeta del proyecto y clicka "Refresh". Esto sincronizará tu diagrama BPMN con Eclipse.
 
+\newpage
 \section{Despliega y testea el proceso BPMN 2.0}
 
 El próximo paso consiste en compilar, desplegar y testear el proceso.
@@ -273,5 +277,83 @@ Para trabajar en el task, selecciona el tab "Form". De nuevo, no hay un formular
 \begin{center}
 \includegraphics[width=\textwidth]{task-form-generic.png}
 \end{center}
+
+\newpage
+\section{Agregar formulario HTML para Start y Task al proceso BPMN 2.0}
+
+En el siguiente paso, queremos agregar un Task basado en un formulario en HTML a la aplicación.
+
+\subsection{Agregar un formulario al Start}
+
+Vuelve a Eclipse y agrega una carpeta llamada "forms" en la ruta "src/main/webapp/forms". Dentro de esta carpeta, agrega un archivo llamado "request-loan.html" y agrega el siguiente contenido en el archivo:
+
+\begin{minted}[bgcolor=bg]{html}
+<form name="requestLoan">
+  <div class="form-group">
+    <label for="customerId">Customer ID</label>
+    <input class="form-control"
+           cam-variable-type="String"
+           cam-variable-name="customerId"
+           name="customerId" />
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input class="form-control"
+           cam-variable-type="Double"
+           cam-variable-name="amount"
+           name="amount" />
+  </div>
+</form>
+\end{minted}
+
+Abre el diagrama con el Modeler. Clicka en el Start event. En la vista de propiedades, clicka en el tab "Forms" e inserta "embedded:app:forms/request-loan.html" en el campo "Form Key". Esto significa que queremos usar un formulario incrustado dentro del Tasklist y ese formulario se carga desde la aplicación.
+Guarda tus cambios en el diagrama y actualiza Eclipse.
+
+\begin{center}
+\includegraphics[width=\textwidth]{modeler-start-form.png}
+\end{center}
+
+\subsection{Agrega un formulario al Task}
+
+El formulario para el Task, puede ser agregado del mismo modo. Agrega un archivo de nombre "approve-loan.html" en la ruta "src/main/webapp/forms" y agrega el siguiente contenido:
+
+\begin{minted}[bgcolor=bg]{html}
+<form name="approveLoan">
+  <div class="form-group">
+    <label for="customerId">Customer ID</label>
+    <input class="form-control"
+           cam-variable-type="String"
+           cam-variable-name="customerId"
+           name="customerId"
+           readonly="true" />
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input class="form-control"
+           cam-variable-type="Double"
+           cam-variable-name="amount"
+           name ="amount" />
+  </div>
+</form>
+\end{minted}
+
+Luego de eso, abre el diagrama con el Modeler nuevamente. Clicka en el User Task. En la vista de propiedades, clicka en el tab "Forms" y agrega "embedded:app:forms/approve-loan.html" en el atributo "Form Key".
+
+\subsection{Re-compila y despliega}
+
+Cuando estés listo, guarda todos tus cambios, vuelve a compilar con el archivo "pom.xml" (del mismo modo que lo hicimos antes) y mueve el archivo "war" a la carpeta "webapps" (debes reemplazar el anterior).
+Ahora, anda al Tasklist y empieza una nueva instancia del proceso "loan approval". Verás que se despliega el nuevo formulario.
+
+\begin{center}
+\includegraphics[width=\textwidth]{start-form-embedded.png}
+\end{center}
+
+Luego de empezar la nueca instacia del proceso, un task "Approve Loan" es asignado a john. Para trabajar en el task, inicia seisón como "john", selecciona el task en la lista de tasks y verás que el formulario personalizado es desplegado.
+
+\begin{center}
+\includegraphics[width=\textwidth]{task-form-embedded.png}
+\end{center}
+
+
 
 \end{document}
