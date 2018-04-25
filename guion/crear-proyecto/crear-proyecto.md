@@ -53,7 +53,8 @@ Luego presionar **Next>** dos veces.
 
 Elegir el *arquetipo* correcto:
 
-| camunda-archetype-servlet-war
+- **Catalog**: Camunda
+- **Artifact Id**: camunda-archetype-servlet-war
 
 Presionar **Next>**.
 
