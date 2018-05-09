@@ -53,7 +53,7 @@ Ejemplos
 
 - 0 0/5 * * * ? :: Cada 5 minutos a partir de la hora.
 - 2/30 0 * * * ? :: Cada 30 segundos a partir del segundo 2.
-- 0 15 13 * * * "MON,WED" :: Lunes y Miércoles a las 13:15.
+- 0 15 13-15 * * * "MON,WED" :: Lunes y Miércoles a las 13:15, 14:15 y 15:15.
 
 \newpage
 # Signal Event
