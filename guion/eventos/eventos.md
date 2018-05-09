@@ -84,3 +84,12 @@ URL [https://docs.camunda.org/manual/7.8/reference/bpmn20/events/error-events/](
 ![](error.png)
 
 Actualmente no es posible definir un mensage de error. Solo un código.
+
+# Compensation y Cancel Event
+
+URL [https://docs.camunda.org/manual/7.8/reference/bpmn20/events/cancel-and-compensation-events/](https://docs.camunda.org/manual/7.8/reference/bpmn20/events/cancel-and-compensation-events/)
+
+[Transaction Subprocess URL](https://docs.camunda.org/manual/7.8/reference/bpmn20/subprocesses/transaction-subprocess/)
+
+
+Ningún problema
