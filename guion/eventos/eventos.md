@@ -76,3 +76,11 @@ Link name debe ser el mismo en el **throw** y **catch** event.
 
 URL [https://docs.camunda.org/manual/7.8/reference/bpmn20/events/terminate-event/](https://docs.camunda.org/manual/7.8/reference/bpmn20/events/terminate-event/)
 
+\newpage
+# Error Event
+
+URL [https://docs.camunda.org/manual/7.8/reference/bpmn20/events/error-events/](https://docs.camunda.org/manual/7.8/reference/bpmn20/events/error-events/)
+
+![](error.png)
+
+Actualmente no es posible definir un mensage de error. Solo un código.
