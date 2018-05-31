@@ -1,4 +1,4 @@
-package org.camunda.demo.NotSoSimpleDemo;
+package com.camunda.demo.NotSoSimpleDemo;
 
 import java.util.List;
 import java.util.Random;
