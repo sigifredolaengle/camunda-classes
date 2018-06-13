@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.11.3">
+  <bpmn:process id="CheckRut" name="CheckRut" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1kdqgj4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1kdqgj4" sourceRef="StartEvent_1" targetRef="Task_16m23ag" />
+    <bpmn:userTask id="Task_16m23ag" name="Pedir nombre y rut">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="name" label="Nombre" type="string" />
+          <camunda:formField id="rut" label="Rut" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1kdqgj4</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_01iu66q</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0z4aqz2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:subProcess id="SubProcess_0h790r2">
+      <bpmn:incoming>SequenceFlow_0z4aqz2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1bs3uwj</bpmn:outgoing>
+      <bpmn:startEvent id="StartEvent_1m8o2s4">
+        <bpmn:outgoing>SequenceFlow_0baucf9</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="SequenceFlow_0baucf9" sourceRef="StartEvent_1m8o2s4" targetRef="Task_045jy80" />
+      <bpmn:serviceTask id="Task_045jy80" name="Obtener nombre según rut">
+        <bpmn:extensionElements>
+          <camunda:connector>
+            <camunda:inputOutput>
+              <camunda:inputParameter name="method">GET</camunda:inputParameter>
+              <camunda:inputParameter name="url">
+                <camunda:script scriptFormat="freemarker">https://api.rutify.cl/rut/${rut}</camunda:script>
+              </camunda:inputParameter>
+              <camunda:outputParameter name="retrievedName">
+                <camunda:script scriptFormat="javaScript"><![CDATA[S(response).prop("nombre").value().toString()]]></camunda:script>
+              </camunda:outputParameter>
+            </camunda:inputOutput>
+            <camunda:connectorId>http-connector</camunda:connectorId>
+          </camunda:connector>
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_0baucf9</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_1on1q1m</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="SequenceFlow_1on1q1m" sourceRef="Task_045jy80" targetRef="Task_13yqyjv" />
+      <bpmn:userTask id="Task_13yqyjv" name="Confirmar nombre">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="name" label="Nombre  ingresado" type="string">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="retrievedName" label="Nombre recuperado" type="string">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="match" label="Corresponde?" type="boolean" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_1on1q1m</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_1tsha6e</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:exclusiveGateway id="ExclusiveGateway_12l2di7" name="Corresponde?">
+        <bpmn:incoming>SequenceFlow_1tsha6e</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0x308eo</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_1mqmyic</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="SequenceFlow_1tsha6e" sourceRef="Task_13yqyjv" targetRef="ExclusiveGateway_12l2di7" />
+      <bpmn:endEvent id="EndEvent_0qab493">
+        <bpmn:incoming>SequenceFlow_0x308eo</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="SequenceFlow_0x308eo" name="Sí" sourceRef="ExclusiveGateway_12l2di7" targetRef="EndEvent_0qab493">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{match}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="SequenceFlow_1mqmyic" name="No" sourceRef="ExclusiveGateway_12l2di7" targetRef="EndEvent_02qt9bk">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not match}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:endEvent id="EndEvent_02qt9bk">
+        <bpmn:incoming>SequenceFlow_1mqmyic</bpmn:incoming>
+        <bpmn:errorEventDefinition errorRef="Error_1u4drno" />
+      </bpmn:endEvent>
+    </bpmn:subProcess>
+    <bpmn:sequenceFlow id="SequenceFlow_0z4aqz2" sourceRef="Task_16m23ag" targetRef="SubProcess_0h790r2" />
+    <bpmn:sequenceFlow id="SequenceFlow_01iu66q" sourceRef="BoundaryEvent_1np8wmc" targetRef="Task_16m23ag" />
+    <bpmn:endEvent id="EndEvent_00r5zju">
+      <bpmn:incoming>SequenceFlow_1bs3uwj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1bs3uwj" sourceRef="SubProcess_0h790r2" targetRef="EndEvent_00r5zju" />
+    <bpmn:boundaryEvent id="BoundaryEvent_1np8wmc" attachedToRef="SubProcess_0h790r2">
+      <bpmn:outgoing>SequenceFlow_01iu66q</bpmn:outgoing>
+      <bpmn:errorEventDefinition errorRef="Error_1u4drno" />
+    </bpmn:boundaryEvent>
+  </bpmn:process>
+  <bpmn:error id="Error_1u4drno" name="Nombre no corresponde" errorCode="Nombre no corresponde" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CheckRut">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kdqgj4_di" bpmnElement="SequenceFlow_1kdqgj4">
+        <di:waypoint xsi:type="dc:Point" x="209" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="257" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="233" y="98.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_08iqdg9_di" bpmnElement="Task_16m23ag">
+        <dc:Bounds x="257" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SubProcess_0h790r2_di" bpmnElement="SubProcess_0h790r2" isExpanded="true">
+        <dc:Bounds x="429" y="-114" width="344" height="467" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0z4aqz2_di" bpmnElement="SequenceFlow_0z4aqz2">
+        <di:waypoint xsi:type="dc:Point" x="357" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="429" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="393" y="98.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_1m8o2s4_di" bpmnElement="StartEvent_1m8o2s4">
+        <dc:Bounds x="463" y="-15" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="481" y="24" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0baucf9_di" bpmnElement="SequenceFlow_0baucf9">
+        <di:waypoint xsi:type="dc:Point" x="499" y="3" />
+        <di:waypoint xsi:type="dc:Point" x="539" y="3" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="519" y="-18.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0pax9sz_di" bpmnElement="Task_045jy80">
+        <dc:Bounds x="539" y="-37" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1on1q1m_di" bpmnElement="SequenceFlow_1on1q1m">
+        <di:waypoint xsi:type="dc:Point" x="589" y="43" />
+        <di:waypoint xsi:type="dc:Point" x="589" y="75" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="604" y="52.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0aljvgz_di" bpmnElement="Task_13yqyjv">
+        <dc:Bounds x="539" y="75" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_12l2di7_di" bpmnElement="ExclusiveGateway_12l2di7" isMarkerVisible="true">
+        <dc:Bounds x="564" y="181" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="484" y="199" width="76" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1tsha6e_di" bpmnElement="SequenceFlow_1tsha6e">
+        <di:waypoint xsi:type="dc:Point" x="589" y="155" />
+        <di:waypoint xsi:type="dc:Point" x="589" y="181" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="604" y="161" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0qab493_di" bpmnElement="EndEvent_0qab493">
+        <dc:Bounds x="673" y="188" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="691" y="227" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0x308eo_di" bpmnElement="SequenceFlow_0x308eo">
+        <di:waypoint xsi:type="dc:Point" x="614" y="206" />
+        <di:waypoint xsi:type="dc:Point" x="673" y="206" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="638" y="185" width="11" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1mqmyic_di" bpmnElement="SequenceFlow_1mqmyic">
+        <di:waypoint xsi:type="dc:Point" x="589" y="231" />
+        <di:waypoint xsi:type="dc:Point" x="589" y="282" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="596" y="250" width="16" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_16s7pz7_di" bpmnElement="EndEvent_02qt9bk">
+        <dc:Bounds x="571" y="282" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="589" y="321" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_01iu66q_di" bpmnElement="SequenceFlow_01iu66q">
+        <di:waypoint xsi:type="dc:Point" x="411" y="279" />
+        <di:waypoint xsi:type="dc:Point" x="307" y="279" />
+        <di:waypoint xsi:type="dc:Point" x="307" y="160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="359" y="257.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_00r5zju_di" bpmnElement="EndEvent_00r5zju">
+        <dc:Bounds x="814" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="832" y="141" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1bs3uwj_di" bpmnElement="SequenceFlow_1bs3uwj">
+        <di:waypoint xsi:type="dc:Point" x="773" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="814" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="793.5" y="98" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_1ca7ui2_di" bpmnElement="BoundaryEvent_1np8wmc">
+        <dc:Bounds x="411" y="261" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="429" y="300" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
