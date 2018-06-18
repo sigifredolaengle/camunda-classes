@@ -15,10 +15,6 @@
       <bpmn:outgoing>SequenceFlow_0bjnymh</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_1n181bb" sourceRef="Task_005hrss" targetRef="ExclusiveGateway_1xl7qyq" />
-    <bpmn:task id="Task_0sd0p39" name="watch game with sijo">
-      <bpmn:incoming>SequenceFlow_0ef48cx</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1g843eg</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:sequenceFlow id="SequenceFlow_0ef48cx" name="preussen munster" sourceRef="ExclusiveGateway_1xl7qyq" targetRef="Task_0sd0p39">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{teamName == 'preussen munster'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -30,6 +26,11 @@
       <bpmn:incoming>SequenceFlow_0bjnymh</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0bjnymh" sourceRef="ExclusiveGateway_1xl7qyq" targetRef="EndEvent_0hewfae" />
+    <bpmn:scriptTask id="Task_0sd0p39" name="watch game with sijo">
+      <bpmn:incoming>SequenceFlow_0ef48cx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1g843eg</bpmn:outgoing>
+      <bpmn:script></bpmn:script>
+    </bpmn:scriptTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="WatchMunster">
@@ -59,15 +60,12 @@
           <dc:Bounds x="415.5" y="98" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Task_0sd0p39_di" bpmnElement="Task_0sd0p39">
-        <dc:Bounds x="580" y="-49" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0ef48cx_di" bpmnElement="SequenceFlow_0ef48cx">
         <di:waypoint x="474" y="95" />
         <di:waypoint x="474" y="-9" />
         <di:waypoint x="580" y="-9" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="439" y="-32" width="89" height="13" />
+          <dc:Bounds x="439" y="-32" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1xzntkm_di" bpmnElement="EndEvent_1xzntkm">
@@ -96,6 +94,9 @@
           <dc:Bounds x="632" y="98" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1p9bqkj_di" bpmnElement="Task_0sd0p39">
+        <dc:Bounds x="580" y="-49" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
