@@ -1,3 +1,3 @@
 # Main Process
 
-[process.png](Diagram)
+![Diagram](process.png)

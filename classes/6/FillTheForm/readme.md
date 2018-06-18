@@ -1,3 +1,3 @@
 # Fill the Form
 
-[process.png](Diagram)
+![Diagram](process.png)

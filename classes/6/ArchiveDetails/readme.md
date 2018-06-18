@@ -1,3 +1,3 @@
 # Archive Details
 
-[process.png](Diagram)
+![Diagram](process.png)
