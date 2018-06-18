@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0cggf9o" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.15.1">
+  <bpmn:process id="FillTheForm" name="FillTheForm" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0cetsi6</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_05938ot" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0cetsi6" sourceRef="StartEvent_1" targetRef="Task_1n7izvv" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0tivj6r" name="Acepta?">
+      <bpmn:incoming>SequenceFlow_0el32v6</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0marbm6</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_00gqvvz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0marbm6" sourceRef="ExclusiveGateway_0tivj6r" targetRef="Task_00qgyps">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{acepta}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_00gqvvz" sourceRef="ExclusiveGateway_0tivj6r" targetRef="EndEvent_0bmoyva">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not acepta}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_1iwcpxe">
+      <bpmn:incoming>SequenceFlow_055uxlb</bpmn:incoming>
+      <bpmn:messageEventDefinition messageRef="Message_169yrjh" camunda:expression="${execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#34;msg-appreceived&#34;).processInstanceBusinessKey(correlationId).setVariable(&#34;firstname&#34;,firstname).setVariable(&#34;lastname&#34;,lastname).setVariable(&#34;phone&#34;,phone).setVariable(&#34;age&#34;,age).correlateWithResult()}" />
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_0bmoyva">
+      <bpmn:incoming>SequenceFlow_00gqvvz</bpmn:incoming>
+      <bpmn:messageEventDefinition messageRef="Message_0gtcxtc" camunda:expression="${execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#34;msg-notinterested&#34;).processInstanceBusinessKey(correlationId).correlateWithResult()}" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_055uxlb" sourceRef="Task_00qgyps" targetRef="EndEvent_1iwcpxe" />
+    <bpmn:userTask id="Task_00qgyps" name="Llenar formulario">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="firstname" label="First Name" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="lastname" label="Last Name" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="phone" label="Phone Number" type="string" />
+          <camunda:formField id="age" label="Age" type="long" defaultValue="18" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0marbm6</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_055uxlb</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0el32v6" sourceRef="Task_1n7izvv" targetRef="ExclusiveGateway_0tivj6r" />
+    <bpmn:userTask id="Task_1n7izvv" name="Está interesado/a?">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="acepta" label="Está interesado en llenar el formulario?" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0cetsi6</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0el32v6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:textAnnotation id="TextAnnotation_1ybzrcw">
+      <bpmn:text>msg-fillform</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0li7l8u" sourceRef="StartEvent_1" targetRef="TextAnnotation_1ybzrcw" />
+    <bpmn:textAnnotation id="TextAnnotation_1rx4xn0">
+      <bpmn:text>msg-notinterested</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1w6z6da" sourceRef="EndEvent_0bmoyva" targetRef="TextAnnotation_1rx4xn0" />
+    <bpmn:textAnnotation id="TextAnnotation_17gsmq0">
+      <bpmn:text>msg-appreceived</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0zeurgd" sourceRef="EndEvent_1iwcpxe" targetRef="TextAnnotation_17gsmq0" />
+  </bpmn:process>
+  <bpmn:message id="Message_05938ot" name="msg-fillform" />
+  <bpmn:message id="Message_169yrjh" name="msg-appreceived" />
+  <bpmn:message id="Message_0gtcxtc" name="msg-notinterested" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="FillTheForm">
+      <bpmndi:BPMNShape id="StartEvent_0i0nn3r_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="166" y="107" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0cetsi6_di" bpmnElement="SequenceFlow_0cetsi6">
+        <di:waypoint x="202" y="125" />
+        <di:waypoint x="239" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0tivj6r_di" bpmnElement="ExclusiveGateway_0tivj6r" isMarkerVisible="true">
+        <dc:Bounds x="389" y="100" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="391" y="77" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0marbm6_di" bpmnElement="SequenceFlow_0marbm6">
+        <di:waypoint x="439" y="125" />
+        <di:waypoint x="488" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_00gqvvz_di" bpmnElement="SequenceFlow_00gqvvz">
+        <di:waypoint x="414" y="150" />
+        <di:waypoint x="414" y="235" />
+        <di:waypoint x="652" y="235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1kw0lh4_di" bpmnElement="EndEvent_1iwcpxe">
+        <dc:Bounds x="652" y="107" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1j9ilfo_di" bpmnElement="EndEvent_0bmoyva">
+        <dc:Bounds x="652" y="217" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_055uxlb_di" bpmnElement="SequenceFlow_055uxlb">
+        <di:waypoint x="588" y="125" />
+        <di:waypoint x="652" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0uv7x77_di" bpmnElement="Task_00qgyps">
+        <dc:Bounds x="488" y="85" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0el32v6_di" bpmnElement="SequenceFlow_0el32v6">
+        <di:waypoint x="339" y="125" />
+        <di:waypoint x="389" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1gm0vtp_di" bpmnElement="Task_1n7izvv">
+        <dc:Bounds x="239" y="85" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1ybzrcw_di" bpmnElement="TextAnnotation_1ybzrcw">
+        <dc:Bounds x="134" y="66" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0li7l8u_di" bpmnElement="Association_0li7l8u">
+        <di:waypoint x="184" y="107" />
+        <di:waypoint x="184" y="96" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1rx4xn0_di" bpmnElement="TextAnnotation_1rx4xn0">
+        <dc:Bounds x="608" y="177" width="123" height="27" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1w6z6da_di" bpmnElement="Association_1w6z6da">
+        <di:waypoint x="670" y="217" />
+        <di:waypoint x="670" y="204" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_17gsmq0_di" bpmnElement="TextAnnotation_17gsmq0">
+        <dc:Bounds x="608" y="65" width="123" height="32" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0zeurgd_di" bpmnElement="Association_0zeurgd">
+        <di:waypoint x="670" y="107" />
+        <di:waypoint x="670" y="97" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
