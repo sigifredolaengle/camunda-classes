@@ -14,7 +14,6 @@ Connects to the API and retrieves 2 values: "uf" and "dolar".
 
 API url: [http://indicadoresdeldia.cl/webservice/indicadores.json](http://indicadoresdeldia.cl/webservice/indicadores.json)
 
-\newpage
 
 # Exercice 2
 ![BPMN Diagram](call.png)
@@ -38,7 +37,6 @@ Should fire every weekday (Mon-Fri) at 9 AM.
 
 Should fire after 5 minutes.
 
-\newpage
 
 # Exercice 3
 
@@ -65,7 +63,6 @@ transfer the information required by the User Tasks.
 |   2 | lastname  | String  |
 |   5 | accepts   | Boolean |
 
-\newpage
 
 ## Revisar Solicitud
 ![BPMN Diagram](msg2.png)
