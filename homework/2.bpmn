@@ -28,7 +28,7 @@
       <bpmn:outgoing>SequenceFlow_0m4mgrp</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:textAnnotation id="TextAnnotation_1wccl1h">
-      <bpmn:text>should call process from exercise 1</bpmn:text>
+      <bpmn:text>should be a call activity from exercise 1</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1j3j8ys" sourceRef="Task_119enes" targetRef="TextAnnotation_1wccl1h" />
     <bpmn:textAnnotation id="TextAnnotation_1inmzpz">
