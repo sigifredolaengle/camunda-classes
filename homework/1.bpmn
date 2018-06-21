@@ -14,10 +14,22 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0ugkwl5" sourceRef="Task_10qxy2z" targetRef="Task_05qwkpj" />
     <bpmn:sequenceFlow id="SequenceFlow_0xm6sw2" sourceRef="Task_05qwkpj" targetRef="EndEvent_00451ok" />
-    <bpmn:userTask id="Task_05qwkpj" name="Verificar indicadores">
+    <bpmn:userTask id="Task_05qwkpj" name="Mostrar indicadores">
       <bpmn:incoming>SequenceFlow_0ugkwl5</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0xm6sw2</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:textAnnotation id="TextAnnotation_0dxuimg">
+      <bpmn:text>out: uf, dolar</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_16vrd6x" sourceRef="Task_10qxy2z" targetRef="TextAnnotation_0dxuimg" />
+    <bpmn:textAnnotation id="TextAnnotation_06mvs1i">
+      <bpmn:text>url: http://indicadoresdeldia.cl/webservice/indicadores.json</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_00alk64" sourceRef="Task_10qxy2z" targetRef="TextAnnotation_06mvs1i" />
+    <bpmn:textAnnotation id="TextAnnotation_1tl78h1">
+      <bpmn:text>uf, dolar</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_04gn60v" sourceRef="Task_05qwkpj" targetRef="TextAnnotation_1tl78h1" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ObtenerIndicadores">
@@ -45,6 +57,27 @@
       <bpmndi:BPMNShape id="UserTask_0qdszmf_di" bpmnElement="Task_05qwkpj">
         <dc:Bounds x="411" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0dxuimg_di" bpmnElement="TextAnnotation_0dxuimg">
+        <dc:Bounds x="232" y="200" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_16vrd6x_di" bpmnElement="Association_16vrd6x">
+        <di:waypoint x="298" y="160" />
+        <di:waypoint x="286" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_06mvs1i_di" bpmnElement="TextAnnotation_06mvs1i">
+        <dc:Bounds x="344" y="200" width="100" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_00alk64_di" bpmnElement="Association_00alk64">
+        <di:waypoint x="339" y="160" />
+        <di:waypoint x="368" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1tl78h1_di" bpmnElement="TextAnnotation_1tl78h1">
+        <dc:Bounds x="505" y="21" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_04gn60v_di" bpmnElement="Association_04gn60v">
+        <di:waypoint x="505" y="81" />
+        <di:waypoint x="538" y="51" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

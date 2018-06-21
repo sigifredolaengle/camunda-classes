@@ -27,6 +27,22 @@
       <bpmn:incoming>SequenceFlow_1dbajh4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0m4mgrp</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:textAnnotation id="TextAnnotation_1wccl1h">
+      <bpmn:text>should call process from exercise 1</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1j3j8ys" sourceRef="Task_119enes" targetRef="TextAnnotation_1wccl1h" />
+    <bpmn:textAnnotation id="TextAnnotation_1inmzpz">
+      <bpmn:text>Should fire after 5 minutes.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0wybdo1" sourceRef="BoundaryEvent_18vjm5m" targetRef="TextAnnotation_1inmzpz" />
+    <bpmn:textAnnotation id="TextAnnotation_1qfishq">
+      <bpmn:text>Should fire every weekday (Mon-Fri) at 9 AM. </bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1rw75k1" sourceRef="StartEvent_1" targetRef="TextAnnotation_1qfishq" />
+    <bpmn:textAnnotation id="TextAnnotation_1ot5nsr">
+      <bpmn:text>uf, report</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1dtam6q" sourceRef="Task_1ga5545" targetRef="TextAnnotation_1ot5nsr" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="InformeDiario">
@@ -65,12 +81,40 @@
       <bpmndi:BPMNShape id="StartEvent_0114w7l_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="286" y="102" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="264" y="145" width="80" height="14" />
+          <dc:Bounds x="267" y="82" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_0zaehpi_di" bpmnElement="Task_1ga5545">
         <dc:Bounds x="559" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1wccl1h_di" bpmnElement="TextAnnotation_1wccl1h">
+        <dc:Bounds x="327" y="225" width="100" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1j3j8ys_di" bpmnElement="Association_1j3j8ys">
+        <di:waypoint x="434" y="160" />
+        <di:waypoint x="394" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1inmzpz_di" bpmnElement="TextAnnotation_1inmzpz">
+        <dc:Bounds x="709" y="172" width="100" height="42" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0wybdo1_di" bpmnElement="Association_0wybdo1">
+        <di:waypoint x="619" y="164" />
+        <di:waypoint x="709" y="183" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1qfishq_di" bpmnElement="TextAnnotation_1qfishq">
+        <dc:Bounds x="165" y="173" width="100" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1rw75k1_di" bpmnElement="Association_1rw75k1">
+        <di:waypoint x="291" y="133" />
+        <di:waypoint x="250" y="173" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1ot5nsr_di" bpmnElement="TextAnnotation_1ot5nsr">
+        <dc:Bounds x="660" y="25" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1dtam6q_di" bpmnElement="Association_1dtam6q">
+        <di:waypoint x="656" y="83" />
+        <di:waypoint x="691" y="55" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
