@@ -24,15 +24,15 @@ mail.attachment.path=attachments<br>
 mail.user=usuario@gmail.com<br>
 mail.password=contraseña<br>
 
-Guardar este archivo en 'camunda-bpm-tomcat-X.X.X/server/apache-tomcat-X.X.X/conf/', donde 'X.X.X' es la versión de Camunda y Tomcat que se están usando.
+Ajustar el usuario y la contraseña y guardar este archivo en '**camunda-bpm-tomcat-X.X.X/server/apache-tomcat-X.X.X/conf/**', donde '**X.X.X**' es la versión de Camunda y Tomcat que se están usando.
 
 
 ## Configurar variable de entorno
 
 ### Sistemas operarivos UNIX
 
-Abrir el archivo 'setenv.sh', ubicado en 'camunda-bpm-tomcat-X.X.X/server/apache-tomcat-X.X.X/bin/' y añadir 'export MAIL_CONFIG="$CATALINA_HOME/conf/mail-config.properties"' en la primera línea.
+Abrir el archivo '**setenv.sh**', ubicado en '**camunda-bpm-tomcat-X.X.X/server/apache-tomcat-X.X.X/bin/**' y añadir '**export MAIL_CONFIG="$CATALINA_HOME/conf/mail-config.properties"**' en la primera línea.
 
 ### Windows
 
-Abrir el archivo 'setenv.bat', ubicado en 'camunda-bpm-tomcat-X.X.X/server/apache-tomcat-X.X.X/bin/' y añadir 'set "MAIL_CONFIG=%CATALINA_HOME%\conf\mail-config.properties"' en la primera línea.
+Abrir el archivo '**setenv.bat**', ubicado en '**camunda-bpm-tomcat-X.X.X/server/apache-tomcat-X.X.X/bin/**' y añadir '**set "MAIL_CONFIG=%CATALINA_HOME%\conf\mail-config.properties"**' en la primera línea.
