@@ -1,4 +1,4 @@
-#Configuración del servidor
+# Configuración del servidor
 
 ## Establecer configuración de Gmail
 
@@ -6,23 +6,23 @@ Crear un archivo con el nombre 'mail-config.properties' y añadirle la siguiente
 
 mail.transport.protocol=smtp<br>
 mail.smtp.host=smtp.gmail.com<br>
-mail.smtp.port=465
-mail.smtp.auth=true
-mail.smtp.ssl.enable=true
-mail.smtp.socketFactory.port=465
-mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory
-mail.store.protocol=imaps
-mail.imaps.host=imap.gmail.com
-mail.imaps.port=993
-mail.imaps.timeout=10000
-mail.imap.partialfetch=false
-mail.poll.folder=INBOX
-mail.sender=usuario@gmail.com
-mail.sender.alias=alias
-mail.attachment.download=true
-mail.attachment.path=attachments
-mail.user=usuario@gmail.com
-mail.password=contraseña
+mail.smtp.port=465<br>
+mail.smtp.auth=true<br>
+mail.smtp.ssl.enable=true<br>
+mail.smtp.socketFactory.port=465<br>
+mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory<br>
+mail.store.protocol=imaps<br>
+mail.imaps.host=imap.gmail.com<br>
+mail.imaps.port=993<br>
+mail.imaps.timeout=10000<br>
+mail.imap.partialfetch=false<br>
+mail.poll.folder=INBOX<br>
+mail.sender=usuario@gmail.com<br>
+mail.sender.alias=alias<br>
+mail.attachment.download=true<br>
+mail.attachment.path=attachments<br>
+mail.user=usuario@gmail.com<br>
+mail.password=contraseña<br>
 
 Guardar este archivo en 'camunda-bpm-tomcat-X.X.X/server/apache-tomcat-X.X.X/conf/', donde 'X.X.X' es la versión de Camunda y Tomcat que se están usando.
 
