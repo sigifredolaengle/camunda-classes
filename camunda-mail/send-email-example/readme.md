@@ -1,0 +1,30 @@
+# Send email Example
+
+![BPMN Diagram](process.png)
+
+|   Nr. | Topic              | Activity                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| :---: | :---               | :---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+|     1 | Model              |
+ 1. Open camunda-modeler. <br>
+ 2. Draw the BPMN diagram. <br>
+ 3. **Start Event**: Add a form with a 'cityName' and 'correo' fields of type 'string' and a validation of name 'required' for both. <br>
+ 4. **'Consultar tiempo' Service Task**: Set the field 'Implementation' = 'Connector'. <br>
+ 5. **'Consultar tiempo' Service Task**: Switch to the **Connector** tab. Set the **Connector Id** = 'http-connector'.<br>
+ 6. **'Consultar tiempo' Service Task**: Add the following **Input Parameters**:<br>
+ 6a. **Name** = 'method'. **Type** = 'Text'. **Value** = 'GET'. <br>
+ 6b. **Name** = 'url'. **Type** = 'Script'. **Script Format** = 'freemarker'. **Script Type** = 'Inline Script'. **Script** = 'http://178.62.33.94:8000/weatherOk/${cityName}'.<br>
+ 7. **'Avisar buen tiempo' Service Task**: Set the field 'Implementation' = 'Connector'. <br>
+ 8. **'Avisar buen tiempo' Service Task**: Switch to the **Connector** tab. Set the **Connector Id** = 'mail-send'.<br>
+ 9. **'Avisar buen tiempo' Service Task**: Add the following **Input Parameters**:<br>
+ 9a. **Name** = 'to'. **Type** = 'Text'. **Value** = '#{correo}'. <br>
+ 9b. **Name** = 'subject'. **Type** = 'Text'. **Value** = 'Weather'. <br>
+ 9c. **Name** = 'text'. **Type** = 'Text'. **Value** = 'El tiempo está bueno en #{cityName}.'. <br>
+ 10. **'Avisar mal tiempo' Service Task**: Set the field 'Implementation' = 'Connector'. <br>
+ 11. **'Avisar mal tiempo' Service Task**: Switch to the **Connector** tab. Set the **Connector Id** = 'mail-send'.<br>
+ 12. **'Avisar mal tiempo' Service Task**: Add the following **Input Parameters**:<br>
+ 12a. **Name** = 'to'. **Type** = 'Text'. **Value** = '#{correo}'. <br>
+ 12b. **Name** = 'subject'. **Type** = 'Text'. **Value** = 'Weather'. <br>
+ 12c. **Name** = 'text'. **Type** = 'Text'. **Value** = 'El tiempo está malo en #{cityName}.'. <br>
+ 13. **'Weather ok? Yes' Sequence Flow**: Set the field 'Condition Type' = 'Expression' and 'Expression' = '#{weatherOk}'. <br>
+ 14. **'Weather ok? No' Sequence Flow**: Using the tool icon change its type to a 'Default Flow'. <br> 
+ |
