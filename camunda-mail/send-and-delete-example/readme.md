@@ -1,4 +1,4 @@
-# Send email Example
+# Send and Delete email Example
 
 ![BPMN Diagram](process.png)
 
