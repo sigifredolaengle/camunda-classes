@@ -4,13 +4,14 @@
 
 ## Process
 
-Id 
-: FillTheForm
-Name 
-: FillTheForm
-Executable 
-: ☑
-
+<dl>
+<dt>Id </dt>
+<dd>FillTheForm</dd>
+<dt>Name </dt>
+<dd>FillTheForm</dd>
+<dt>Executable </dt>
+<dd>☑</dd>
+</dl>
 
 ## Receive Start Event
 
@@ -30,52 +31,36 @@ and select it.
 
 ## Sequence Flow: Sí
 
-Condition Type
-: Expression
-Expression
-: #{acepta}
+<dl>
+<dt>Condition Type</dt>
+<dd>Expression</dd>
+<dt>Expression</dt>
+<dd>#{acepta}</dd>
+</dl>
 
 ## Sequence Flow: No
 
-Condition Type
-: Expression
-Expression
-: #{not acepta}
+<dl>
+<dt>Condition Type</dt>
+<dd>Expression</dd>
+<dt>Expression</dt>
+<dd>#{not acepta}</dd>
+</dl>
 
 ## Send Event: msg-appreceived
 
-Implementation
-: Expression
-
-Expression
-:
-```
-${
-execution.getProcessEngineServices()
-         .getRuntimeService()
-         .createMessageCorrelation("msg-appreceived")
-         .processInstanceBusinessKey(correlationId)
-         .setVariable("firstname",firstname)
-         .setVariable("lastname",lastname)
-         .setVariable("phone",phone)
-         .setVariable("age",age)
-         .correlateWithResult()
-}
-```
+<dl>
+<dt>Implementation</dt>
+<dd>Expression</dd>
+<dt>Expression</dt>
+<dd>${execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("msg-appreceived").processInstanceBusinessKey(correlationId).setVariable("firstname",firstname).setVariable("lastname",lastname).setVariable("phone",phone).setVariable("age",age).correlateWithResult()}</dd>
+</dl>
 
 ## Send Event: msg-notinterested
 
-Implementation
-: Expression
-
-Expression
-:
-```
-${
-execution.getProcessEngineServices()
-         .getRuntimeService()
-         .createMessageCorrelation("msg-notinterested")
-         .processInstanceBusinessKey(correlationId)
-         .correlateWithResult()
-}
-```
+<dl>
+<dt>Implementation</dt>
+<dd>Expression</dd>
+<dt>Expression</dt>
+<dd>${execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("msg-notinterested").processInstanceBusinessKey(correlationId).correlateWithResult()}</dd>
+</dl>

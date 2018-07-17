@@ -4,12 +4,14 @@
 
 ## Process
 
-Id 
-: AssesmentProcess 
-Name 
-: AssesmentProcess 
-Executable 
-: ☑
+<dl>
+<dt>Id </dt>
+<dd>AssesmentProcess </dd>
+<dt>Name </dt>
+<dd>AssesmentProcess </dd>
+<dt>Executable </dt>
+<dd>☑</dd>
+</dl>
 
 
 ## User Task: Check Message
@@ -27,26 +29,30 @@ Executable
 
 ### General - Details
 
-Implementation
-: DMN 
-Decision Ref
-: messageDecision
-Binding 
-: latest 
-Result Variable
-: msg
-Map Decision Result
-: singleEntry
+<dl>
+<dt>Implementation</dt>
+<dd>DMN </dd>
+<dt>Decision Ref</dt>
+<dd>messageDecision</dd>
+<dt>Binding </dt>
+<dd>latest </dd>
+<dt>Result Variable</dt>
+<dd>msg</dd>
+<dt>Map Decision Result</dt>
+<dd>singleEntry</dd>
+</dl>
 
 
 # DMN: Create Message
 
-Name
-: Create Message
-Decision Id
-: messageDecision
-Hit Policy
-: Unique
+<dl>
+<dt>Name</dt>
+<dd>Create Message</dd>
+<dt>Decision Id</dt>
+<dd>messageDecision</dd>
+<dt>Hit Policy</dt>
+<dd>Unique</dd>
+</dl>
 
 ## Inputs
 
