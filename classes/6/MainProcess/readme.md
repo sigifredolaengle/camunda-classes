@@ -31,17 +31,7 @@ Set ticket as Business Key
 <dd>Expression</dd>
 
 <dt>Expression </dt>
-<dd>
-```
-${
-execution.getProcessEngineServices()
-         .getRuntimeService()
-         .createMessageCorrelation("msg-fillform")
-         .setVariable("correlationId",execution.getBusinessKey())
-         .correlateWithResult()
-}
-```
-</dd>
+<dd> ${execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("msg-fillform").setVariable("correlationId",execution.getBusinessKey()).correlateWithResult()} </dd>
 </dl>
 
 
