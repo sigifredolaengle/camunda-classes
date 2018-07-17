@@ -2,14 +2,53 @@
 
 ![Diagram](process.png)
 
-# Notes
+## Process
+
+Id 
+: FillTheForm
+Name 
+: FillTheForm
+Executable 
+: ☑
+
+
+## Receive Start Event
+
+Create a new message with **Message Name** = msg-fillform
+and select it.
+
+## User Task: Llenar el formulario
+
+### Form
+
+| ID        | Type   | Label        | Default value | Constraints |
+| :---:     | :---:  | :---         | :---          | :---        |
+| firstname | string | Firstname    |               | required    |
+| lastname  | string | Lastname     |               | required    |
+| phone     | string | Phone Number |               |             |
+| age       | long   | Age          | 18            |             |
+
+## Sequence Flow: Sí
+
+Condition Type
+: Expression
+Expression
+: #{acepta}
+
+## Sequence Flow: No
+
+Condition Type
+: Expression
+Expression
+: #{not acepta}
 
 ## Send Event: msg-appreceived
 
-### Implementation
-Expression
+Implementation
+: Expression
 
-### Expression
+Expression
+:
 ```
 ${
 execution.getProcessEngineServices()
@@ -26,10 +65,11 @@ execution.getProcessEngineServices()
 
 ## Send Event: msg-notinterested
 
-### Implementation
-Expression
+Implementation
+: Expression
 
-### Expression
+Expression
+:
 ```
 ${
 execution.getProcessEngineServices()
