@@ -3,13 +3,14 @@
 ![Diagram](process.png)
 
 ## Process
-
-Id 
-: MainProcess 
-Name 
-: MainProcess 
-Executable 
-: ☑
+<dl>
+<dt>Id </dt>
+<dd>MainProcess </dd>
+<dt>Name </dt>
+<dd>MainProcess </dd>
+<dt>Executable </dt>
+<dd>☑</dd>
+</dl>
 
 
 ## Start Event
@@ -25,11 +26,12 @@ Set ticket as Business Key
 ## Send Task: Send out a form for filling out
 
 
-Implementation 
-: Expression
+<dl>
+<dt>Implementation </dt>
+<dd>Expression</dd>
 
-Expression 
-:
+<dt>Expression </dt>
+<dd>
 ```
 ${
 execution.getProcessEngineServices()
@@ -39,6 +41,8 @@ execution.getProcessEngineServices()
          .correlateWithResult()
 }
 ```
+</dd>
+</dl>
 
 
 ## Receive Event: Customer is not interested
@@ -54,11 +58,13 @@ and select it.
 ## Intermediate Timer Catch Event
 
 
-Timer Definition Type 
-: Duration
+<dl>
+<dt>Timer Definition Type </dt>
+<dd>Duration</dd>
 
-Timer Definition 
-: PT3M 
+<dt>Timer Definition </dt>
+<dd>PT3M </dd>
+</dl>
 
 
 ## Call Activity: Archive Details
@@ -66,16 +72,18 @@ Timer Definition
 ### General - Details
 
 
-CallActivity Type
-: BPMN 
-Called Element 
-: ArchiveDetails 
-Binding 
-: latest 
-Business Key 
-: ☑
-Business Key Expression 
-: #{execution.processBusinessKey} 
+<dl>
+<dt>CallActivity Type</dt>
+<dd>BPMN </dd>
+<dt>Called Element </dt>
+<dd>ArchiveDetails </dd>
+<dt>Binding </dt>
+<dd>latest </dd>
+<dt>Business Key </dt>
+<dd>☑</dd>
+<dt>Business Key Expression </dt>
+<dd>#{execution.processBusinessKey} </dd>
+</dl>
 
 
 ### Variables - In Mappings
@@ -85,16 +93,18 @@ Create a single mapping of type **All**.
 ## Call Activity: Make Assesment Process
 
 
-CallActivity Type
-: BPMN 
-Called Element 
-: AssesmentProcess 
-Binding 
-: latest 
-Business Key 
-: ☑
-Business Key Expression 
-: #{execution.processBusinessKey} 
+<dl>
+<dt>CallActivity Type</dt>
+<dd>BPMN </dd>
+<dt>Called Element </dt>
+<dd>AssesmentProcess </dd>
+<dt>Binding </dt>
+<dd>latest </dd>
+<dt>Business Key </dt>
+<dd>☑</dd>
+<dt>Business Key Expression </dt>
+<dd>#{execution.processBusinessKey} </dd>
+</dl>
 
 
 ## User Task: Send Reminder
