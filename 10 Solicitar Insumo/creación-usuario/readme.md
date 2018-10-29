@@ -1,7 +1,34 @@
 # Creación de usuarios y grupos
-Para la creación de todos los usuarios siguientes, se debe estar "loggeado" con una cuenta de administrador.
+Para la creación de todos los usuarios siguientes, se debe estar "loggeado" con una cuenta de administrador. Implementaremos la organización de la siguiente figura:
 
-## Usuario que iniciará el flujo
+![BPMN Diagram](user-camunda.png)
+
+## Tabla usuarios
+
+| User ID | Password | Firstname | Lastname  |
+| :---:   | :---:    | :---:     | :---:     |
+| juan    | juan     | Juan      | Soto      |
+| pedro   | pedro    | Pedro     | Monsalves |
+| diego   | diego    | Diego     | Díaz      |
+| junior  | junior   | Alberto   | Díaz      |
+
+
+## Tabla autorizaciones
+|               | Application |             | Process Definition    |             | Process Instance |             |
+| :---:         | :---:       | :---:       | :---:                 | :---:       | :---:            | :---:       |
+| User/Group ID | Permissions | Resource ID | Permissions           | Resource ID | Permissions      | Resource ID |
+| bodega        | ACCESS      | tasklist    | -                     | -           | -                | -           |
+| juan          | ALL         | tasklist    | READ, CREATE_INSTANCE | *           | CREATE           | *           |
+| junior        | ACCESS      | tasklist    | -                     | -           | -                | -           |
+
+
+| a | b |
+|---|---|
+| > | b |
+| a ||
+
+
+## Paso-a-paso
 ### Crear Usuario
 - Ingresar al "Admin".
 - Click en "Users".
@@ -106,22 +133,3 @@ Para la creación de todos los usuarios siguientes, se debe estar "loggeado" con
   - "Permissions" = "ACCESS"
   - "Resource ID" = "tasklist"
   - Click en el "visto".
-
-
-## Tabla usuarios
-
-| User ID | Password | Firstname | Lastname  |
-| :---:   | :---:    | :---:     | :---:     |
-| juan    | juan     | Juan      | Soto      |
-| pedro   | pedro    | Pedro     | Monsalves |
-| diego   | diego    | Diego     | Díaz      |
-| junior  | junior   | Alberto   | Díaz      |
-
-
-## Tabla autorizaciones
-|               | Application |             | Process Definition    |             | Process Instance |             |
-| :---:         | :---:       | :---:       | :---:                 | :---:       | :---:            | :---:       |
-| User/Group ID | Permissions | Resource ID | Permissions           | Resource ID | Permissions      | Resource ID |
-| bodega        | ACCESS      | tasklist    | -                     | -           | -                | -           |
-| juan          | ALL         | tasklist    | READ, CREATE_INSTANCE | *           | CREATE           | *           |
-| junior        | ACCESS      | tasklist    | -                     | -           | -                | -           |
