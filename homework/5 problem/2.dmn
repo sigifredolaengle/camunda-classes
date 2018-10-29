@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_0az8r6z" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0az8r6z" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
   <decision id="Decision_13nyxhf" name="Tipo de Cliente">
+    <extensionElements>
+      <biodi:bounds x="365" y="272" width="180" height="80" />
+    </extensionElements>
     <decisionTable id="decisionTable_1">
-      <input id="input_1" label="antiguedad">
+      <input id="input_1" label="antiguedad" camunda:inputVariable="antiguedad">
         <inputExpression id="inputExpression_1" typeRef="double">
-          <text></text>
+          <text>antiguedad</text>
         </inputExpression>
       </input>
-      <input id="InputClause_070l6fi" label="deudor">
+      <input id="InputClause_070l6fi" label="deudor" camunda:inputVariable="deudor">
         <inputExpression id="LiteralExpression_09cbrp6" typeRef="boolean">
           <text>deudor</text>
         </inputExpression>
       </input>
-      <output id="output_1" label="Tipo de Cliente" typeRef="string">
+      <output id="output_1" label="Tipo de Cliente" name="tipoDeCliente" typeRef="string">
         <outputValues id="UnaryTests_0eiaccp">
           <text>"estratégico","regular","nuevo"</text>
         </outputValues>

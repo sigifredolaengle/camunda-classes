@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_1rpdtp6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
-  <decision id="Decision_13nyxhf" name="Otorga Crédito">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1rpdtp6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="otorgaCredito" name="Otorga Crédito">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
     <decisionTable id="decisionTable_1">
       <input id="input_1" label="Tipo de Cliente">
         <inputExpression id="inputExpression_1" typeRef="string">
-          <text></text>
+          <text>tipoDeCliente</text>
         </inputExpression>
         <inputValues id="UnaryTests_036u683">
           <text>"estratégico","regular","nuevo"</text>
@@ -12,10 +15,10 @@
       </input>
       <input id="InputClause_0h4a6lb" label="Monto">
         <inputExpression id="LiteralExpression_0r8okpl" typeRef="double">
-          <text></text>
+          <text>monto</text>
         </inputExpression>
       </input>
-      <output id="output_1" name="Decisión" typeRef="boolean" />
+      <output id="output_1" label="decision" name="decision" typeRef="boolean" />
       <rule id="DecisionRule_10qouav">
         <inputEntry id="UnaryTests_0hc001z">
           <text>"estratégico"</text>
@@ -24,7 +27,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0q5t7q6">
-          <text>false</text>
+          <text>true</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1o3nuin">

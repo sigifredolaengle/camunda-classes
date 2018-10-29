@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="otorgaCredito" name="Decision" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="tipoDeCliente" name="Tipo de Cliente">
+    <extensionElements>
+      <biodi:bounds x="387" y="431" width="180" height="80" />
+      <biodi:edge source="InputData_0hoknfz">
+        <biodi:waypoints x="362" y="583" />
+        <biodi:waypoints x="436" y="511" />
+      </biodi:edge>
+      <biodi:edge source="InputData_1wu8jbn">
+        <biodi:waypoints x="565" y="581" />
+        <biodi:waypoints x="509" y="511" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0hoknfz" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1wu8jbn" />
+    </informationRequirement>
+    <decisionTable id="decisionTable">
+      <input id="input1" label="Antigüedad">
+        <inputExpression id="inputExpression1" typeRef="double">
+          <text>antiguedad</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_12qeedx" label="Deudor">
+        <inputExpression id="LiteralExpression_072w5ij" typeRef="boolean">
+          <text>deudor</text>
+        </inputExpression>
+      </input>
+      <output id="output1" label="Tipo de Cliente" name="tipoDeCliente" typeRef="string">
+        <outputValues id="UnaryTests_1upysdb">
+          <text>"regular","nuevo","estrategico"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0hp6z1o">
+        <inputEntry id="UnaryTests_15js7nj">
+          <text>&lt; 5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fbxiht">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1b1omtf">
+          <text>"nuevo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1w86fg0">
+        <inputEntry id="UnaryTests_0ssukn9">
+          <text>[5..10[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g1jlpb">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d2xr0q">
+          <text>"nuevo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o78yyh">
+        <inputEntry id="UnaryTests_0sd46pi">
+          <text>[5..10[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kyqaju">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19mvubs">
+          <text>"regular"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pq7flp">
+        <inputEntry id="UnaryTests_1jhz0gb">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1087n9r">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0njp0wx">
+          <text>"estrategico"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="decisionOtorgamiento" name="Decision Otorgamiento">
+    <extensionElements>
+      <biodi:bounds x="676" y="255" width="180" height="80" />
+      <biodi:edge source="tipoDeCliente">
+        <biodi:waypoints x="542" y="431" />
+        <biodi:waypoints x="700" y="335" />
+      </biodi:edge>
+      <biodi:edge source="InputData_1sv7r0o">
+        <biodi:waypoints x="919" y="398" />
+        <biodi:waypoints x="825" y="335" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#tipoDeCliente" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1sv7r0o" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1h4nexc">
+      <input id="InputClause_0agdbk8" label="Tipo de Cliente">
+        <inputExpression id="LiteralExpression_1uhs2sg" typeRef="string">
+          <text>tipoDeCliente</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0fn4j5r">
+          <text>"estratégico","regular","nuevo"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_163sopd" label="Monto">
+        <inputExpression id="LiteralExpression_1kpgaz8" typeRef="double">
+          <text>monto</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1npwrzr" label="Decision de Otorgamiento" name="decisionDeOtorgamiento" typeRef="boolean" />
+      <rule id="DecisionRule_0p4qe05">
+        <inputEntry id="UnaryTests_0fzm78b">
+          <text>"estrategico"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eoyrx3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vi6vat">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oha0eg">
+        <inputEntry id="UnaryTests_0oqhwcd">
+          <text>"regular"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s3h6yo">
+          <text>&lt;= 30000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rz1h3y">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yx27ns">
+        <inputEntry id="UnaryTests_1jytlib">
+          <text>"regular"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1seojn5">
+          <text>&gt; 30000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0av8s8l">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16nfjro">
+        <inputEntry id="UnaryTests_1mugpy3">
+          <text>"nuevo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yz5hc5">
+          <text>&lt;= 50000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_152t6d6">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1njifav">
+        <inputEntry id="UnaryTests_0b69ijm">
+          <text>"nuevo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jbode6">
+          <text>&gt; 50000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bhx1rv">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0hoknfz" name="Antigüedad">
+    <extensionElements>
+      <biodi:bounds x="275.5" y="583" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_1wu8jbn" name="Deudor">
+    <extensionElements>
+      <biodi:bounds x="520.75" y="581" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_1sv7r0o" name="Monto">
+    <extensionElements>
+      <biodi:bounds x="890.75" y="398" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+</definitions>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1u3nc7y" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:collaboration id="Collaboration_1p8u4d2">
+    <bpmn:participant id="Participant_1i3hae5" name="organización" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_17bbdtd">
+      <bpmn:lane id="Lane_02uvz12" name="junior">
+        <bpmn:flowNodeRef>UserTask_11joxag</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1gdi96y" name="bodega">
+        <bpmn:flowNodeRef>UserTask_03fs2tz</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_0mzj2z8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1808ggo</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_09d7gel" name="${starter}">
+        <bpmn:flowNodeRef>UserTask_0gms1mn</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_19j11qu</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_12m6o47</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0ibktud</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:userTask id="UserTask_11joxag" name="hacer las compras">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="insumo" label="Nombre Insumo" type="string" defaultValue="${nombreInsumo}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cantidad" label="Cantidad Comprada" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_153nst3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0t75mlz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0s4rwlm" sourceRef="StartEvent_19j11qu" targetRef="UserTask_0gms1mn" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fd0ulw" sourceRef="UserTask_0gms1mn" targetRef="UserTask_03fs2tz" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ygg1ua" sourceRef="UserTask_03fs2tz" targetRef="ExclusiveGateway_1808ggo" />
+    <bpmn:sequenceFlow id="SequenceFlow_153nst3" sourceRef="ExclusiveGateway_1808ggo" targetRef="UserTask_11joxag" />
+    <bpmn:sequenceFlow id="SequenceFlow_13dcoq3" name="${stock}" sourceRef="ExclusiveGateway_1808ggo" targetRef="UserTask_12m6o47">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${stock}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0t75mlz" sourceRef="UserTask_11joxag" targetRef="UserTask_0mzj2z8" />
+    <bpmn:sequenceFlow id="SequenceFlow_1q2kupx" sourceRef="UserTask_0mzj2z8" targetRef="UserTask_12m6o47" />
+    <bpmn:sequenceFlow id="SequenceFlow_0hknq6s" sourceRef="UserTask_12m6o47" targetRef="EndEvent_0ibktud" />
+    <bpmn:userTask id="UserTask_0gms1mn" name="solicitar insumo" camunda:assignee="${starter}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="nombreInsumo" label="Nombre Insumo" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0s4rwlm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1fd0ulw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:startEvent id="StartEvent_19j11qu" camunda:initiator="starter">
+      <bpmn:outgoing>SequenceFlow_0s4rwlm</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="UserTask_03fs2tz" name="revisar stock" camunda:candidateGroups="bodega">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="stock" label="Hay stock?" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1fd0ulw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ygg1ua</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1808ggo" name="hay stock?" default="SequenceFlow_153nst3">
+      <bpmn:incoming>SequenceFlow_1ygg1ua</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_153nst3</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_13dcoq3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UserTask_0mzj2z8" name="actualizar stock" camunda:candidateGroups="bodega">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="insumo" label="Nombre Insumo" type="string" defaultValue="${nombreInsumo}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cantidad" label="Cantidad Comprada" type="string" defaultValue="${cantidad}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0t75mlz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1q2kupx</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_12m6o47" name="retirar insumo" camunda:assignee="${starter}">
+      <bpmn:incoming>SequenceFlow_13dcoq3</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1q2kupx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hknq6s</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_0ibktud">
+      <bpmn:incoming>SequenceFlow_0hknq6s</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:association id="Association_0jo7sy1" sourceRef="StartEvent_19j11qu" targetRef="TextAnnotation_10t9s2i" />
+    <bpmn:association id="Association_1ws26mj" sourceRef="UserTask_0gms1mn" targetRef="TextAnnotation_1saldyb" />
+    <bpmn:textAnnotation id="TextAnnotation_10t9s2i">
+      <bpmn:text>General/Initiator=starter</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1kg9qkf" sourceRef="UserTask_11joxag" targetRef="TextAnnotation_1yvr4li" />
+    <bpmn:textAnnotation id="TextAnnotation_0g5mp7y">
+      <bpmn:text>Forms/ID=stock
+Forms/Type=boolean Forms/Label=Hay stock?
+</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_03hpkbh" sourceRef="UserTask_03fs2tz" targetRef="TextAnnotation_0g5mp7y" />
+    <bpmn:textAnnotation id="TextAnnotation_0rezyqy">
+      <bpmn:text>Forms/ID=insumo
+Forms/Type=string
+Forms/Label=Nombre Insumo
+Forms/Default Value=${nombreInsumo} Forms/Add Contraint/Name=readonly 
+
+Forms/ID=cantidad
+Forms/Type=string
+Forms/Label=Cantidad Comprada</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1i6ppbf" sourceRef="UserTask_0mzj2z8" targetRef="TextAnnotation_0rezyqy" />
+    <bpmn:textAnnotation id="TextAnnotation_1yvr4li">
+      <bpmn:text>Forms/ID=insumo
+Forms/Type=string 
+Forms/Label=Nombre Insumo
+Forms/Default Value=${nombreInsumo}
+Forms/Add Contraint/Name=readonly
+
+Forms/ID=cantidad
+Forms/Type=string
+Forms/Label=Cantidad Comprada</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_1saldyb">
+      <bpmn:text>Forms/ID=NombreInsumo
+Forms/Type=string
+Forms/Label=Nombre Insumo</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1p8u4d2">
+      <bpmndi:BPMNShape id="Participant_1i3hae5_di" bpmnElement="Participant_1i3hae5">
+        <dc:Bounds x="-87" y="54" width="1117" height="611" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_10t9s2i_di" bpmnElement="TextAnnotation_10t9s2i">
+        <dc:Bounds x="-13" y="609" width="148" height="38" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1saldyb_di" bpmnElement="TextAnnotation_1saldyb">
+        <dc:Bounds x="16" y="372" width="202" height="54" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_19j11qu_di" bpmnElement="StartEvent_19j11qu">
+        <dc:Bounds x="19" y="528" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0gms1mn_di" bpmnElement="UserTask_0gms1mn">
+        <dc:Bounds x="133" y="506" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_03fs2tz_di" bpmnElement="UserTask_03fs2tz">
+        <dc:Bounds x="301" y="334" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1808ggo_di" bpmnElement="ExclusiveGateway_1808ggo" isMarkerVisible="true">
+        <dc:Bounds x="453" y="349" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="423" y="399" width="53" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0mzj2z8_di" bpmnElement="UserTask_0mzj2z8">
+        <dc:Bounds x="542" y="334" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_12m6o47_di" bpmnElement="UserTask_12m6o47">
+        <dc:Bounds x="542" y="506" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0ibktud_di" bpmnElement="EndEvent_0ibktud">
+        <dc:Bounds x="727" y="528" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_11joxag_di" bpmnElement="UserTask_11joxag">
+        <dc:Bounds x="542" y="145" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0jo7sy1_di" bpmnElement="Association_0jo7sy1">
+        <di:waypoint x="37" y="564" />
+        <di:waypoint x="61" y="609" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1ws26mj_di" bpmnElement="Association_1ws26mj">
+        <di:waypoint x="158" y="506" />
+        <di:waypoint x="134" y="426" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0s4rwlm_di" bpmnElement="SequenceFlow_0s4rwlm">
+        <di:waypoint x="55" y="546" />
+        <di:waypoint x="133" y="546" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fd0ulw_di" bpmnElement="SequenceFlow_1fd0ulw">
+        <di:waypoint x="233" y="546" />
+        <di:waypoint x="263" y="546" />
+        <di:waypoint x="263" y="374" />
+        <di:waypoint x="301" y="374" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ygg1ua_di" bpmnElement="SequenceFlow_1ygg1ua">
+        <di:waypoint x="401" y="374" />
+        <di:waypoint x="453" y="374" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_153nst3_di" bpmnElement="SequenceFlow_153nst3">
+        <di:waypoint x="478" y="349" />
+        <di:waypoint x="478" y="185" />
+        <di:waypoint x="542" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_13dcoq3_di" bpmnElement="SequenceFlow_13dcoq3">
+        <di:waypoint x="478" y="399" />
+        <di:waypoint x="478" y="546" />
+        <di:waypoint x="542" y="546" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="487" y="444.5" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0t75mlz_di" bpmnElement="SequenceFlow_0t75mlz">
+        <di:waypoint x="592" y="225" />
+        <di:waypoint x="592" y="334" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1q2kupx_di" bpmnElement="SequenceFlow_1q2kupx">
+        <di:waypoint x="592" y="414" />
+        <di:waypoint x="592" y="506" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hknq6s_di" bpmnElement="SequenceFlow_0hknq6s">
+        <di:waypoint x="642" y="546" />
+        <di:waypoint x="727" y="546" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_02uvz12_di" bpmnElement="Lane_02uvz12">
+        <dc:Bounds x="-57" y="54" width="1087" height="244" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1gdi96y_di" bpmnElement="Lane_1gdi96y">
+        <dc:Bounds x="-57" y="298" width="1087" height="173" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_09d7gel_di" bpmnElement="Lane_09d7gel">
+        <dc:Bounds x="-57" y="471" width="1087" height="194" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1yvr4li_di" bpmnElement="TextAnnotation_1yvr4li">
+        <dc:Bounds x="688" y="114" width="307" height="138" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1kg9qkf_di" bpmnElement="Association_1kg9qkf">
+        <di:waypoint x="642" y="185" />
+        <di:waypoint x="688" y="184" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0g5mp7y_di" bpmnElement="TextAnnotation_0g5mp7y">
+        <dc:Bounds x="191" y="156" width="210" height="54" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_03hpkbh_di" bpmnElement="Association_03hpkbh">
+        <di:waypoint x="339" y="334" />
+        <di:waypoint x="304" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0rezyqy_di" bpmnElement="TextAnnotation_0rezyqy">
+        <dc:Bounds x="740" y="305" width="262" height="138" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1i6ppbf_di" bpmnElement="Association_1i6ppbf">
+        <di:waypoint x="642" y="374" />
+        <di:waypoint x="740" y="374" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
