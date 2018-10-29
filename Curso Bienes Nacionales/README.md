@@ -1,7 +1,7 @@
 # Automatización de Procesos de Negocio
 Al final de este curso, el alumno deberá ser capaz de:
 
-1. Implementar una parte importante de los modelos de BPMN 2.0 y DMN 1.0 propuestos por la plataforma [Camunda](www.camunda.org).
+1. Implementar una parte importante de los modelos de BPMN 2.0 y DMN 1.0 propuestos por la plataforma [Camunda](https://camunda.com).
 2. Comprender el ciclo de desarrollo de *Business Process Management* basado en Camunda.
 
 ## Contenidos
