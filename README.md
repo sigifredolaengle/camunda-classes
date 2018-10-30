@@ -1,8 +1,7 @@
-# camunda-classes
-This a set of examples for implementation Camunda worflows.
+# Camunda Classes
+This a set of examples for implementation Camunda worflows. The course assumes that you have installed at least *Camunda Modeler* and *Camunda Community Platform* (see [camunda download](https://camunda.com/download/)).
 
-## Para compilar un pdf que incluye minted:
+# Camunda Ecosystem
+![alt text][eco]
 
-- pdflatex -shell-escape nombre_archivo.tex
-
-Esto genera un documento pdf de nombre "nombre_archivo.pdf"
+[eco]: 00-camunda-ecosystem.png
