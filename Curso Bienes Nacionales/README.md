@@ -22,4 +22,4 @@ La evaluación del curso consiste en un trabajo que tomará al menos unas 16 hor
 2. Debe ser un caso real, idealmente de un trabajo de uno de los alumnos.
 3. Con previo acuerdo, los alumnos podrán consultar personalmente el profesor los días Ju. 22.11.2018, Ma. 27.11.2018 y Ju. 29.11.2018 entre 14:00 y 18:00 en la oficina del profesor (Sigifredo Laengle, slaengle@fen.uchile.cl) en Diagonal Paraguay 257, Of. T2010, Santiago.
 4. Alternativamente prodrán consultar vía email a [Francisco Olivares](mailto:folivares@uchile.cl) o a [Stefan Malewski](mailto:stefan.malewski.c@gmail.com).
-5. Se debe entregar al profesor vía e-mail ([email Sigifredo Laengle](mailto:slaengle@fen.uchile.cl)) hasta el Lu. 3.12.2018 hasta las 24:00h.
+5. Se debe entregar al profesor vía e-mail ([Sigifredo Laengle](mailto:slaengle@fen.uchile.cl)) hasta el Lu. 3.12.2018 hasta las 24:00h.
