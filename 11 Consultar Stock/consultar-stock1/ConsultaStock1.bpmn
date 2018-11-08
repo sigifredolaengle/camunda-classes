@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1plaqf5" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.15.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1plaqf5" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:process id="ConsultaStock" name="Consulta Stock" isExecutable="true" camunda:versionTag="1">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" camunda:initiator="starter">
       <bpmn:outgoing>SequenceFlow_17rp1wy</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_17rp1wy" sourceRef="StartEvent_1" targetRef="Task_0zgjkal" />
-    <bpmn:userTask id="Task_0zgjkal" name="Ingresar código de producto">
+    <bpmn:userTask id="Task_0zgjkal" name="Ingresar código de producto" camunda:assignee="${starter}">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="codigo" label="Código del producto" type="string">
@@ -27,9 +27,11 @@
             <camunda:inputParameter name="url">
               <camunda:script scriptFormat="freemarker">http://localhost:8000/stock/${codigo}</camunda:script>
             </camunda:inputParameter>
-            <camunda:outputParameter name="nombre">S(response).prop('nombre').value()</camunda:outputParameter>
+            <camunda:outputParameter name="nombre">
+              <camunda:script scriptFormat="javascript">S(response).prop('nombre').value()</camunda:script>
+            </camunda:outputParameter>
             <camunda:outputParameter name="stock">
-              <camunda:script scriptFormat="javaScript">Number(S(response).prop('stock').value())</camunda:script>
+              <camunda:script scriptFormat="javaScript">Number(S(response).prop('stock').value().toString())</camunda:script>
             </camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
@@ -39,7 +41,7 @@
       <bpmn:outgoing>SequenceFlow_1ktqajy</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1ktqajy" sourceRef="Task_15ixbam" targetRef="Task_1pgwpzm" />
-    <bpmn:userTask id="Task_1pgwpzm" name="Mostrar stock">
+    <bpmn:userTask id="Task_1pgwpzm" name="Mostrar stock" camunda:assignee="${starter}">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="codigo" label="Código" type="string">
@@ -52,7 +54,7 @@
               <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="stock" label="Stock" type="long">
+          <camunda:formField id="stock" label="Stock" type="string">
             <camunda:validation>
               <camunda:constraint name="readonly" />
             </camunda:validation>
