@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0rqwkuw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.15.1">
+  <bpmn:process id="ObtenerDatos" name="ObtenerDatos" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0lsetq8</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0lsetq8" sourceRef="StartEvent_1" targetRef="Task_1153zwq" />
+    <bpmn:callActivity id="Task_1153zwq" name="Obtener datos" calledElement="CheckRut">
+      <bpmn:incoming>SequenceFlow_0lsetq8</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0ksykv1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0t3srbh</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="SequenceFlow_0t3srbh" sourceRef="Task_1153zwq" targetRef="Task_07b6q8r" />
+    <bpmn:userTask id="Task_07b6q8r" name="Mostrar datos">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="nombre" label="Nombre" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="rut" label="Rut" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0t3srbh</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09zr2vw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1csck9z">
+      <bpmn:incoming>SequenceFlow_09zr2vw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_09zr2vw" sourceRef="Task_07b6q8r" targetRef="EndEvent_1csck9z" />
+    <bpmn:boundaryEvent id="BoundaryEvent_1tq56sj" name="Datos incorrectos" attachedToRef="Task_1153zwq">
+      <bpmn:outgoing>SequenceFlow_1as4opm</bpmn:outgoing>
+      <bpmn:errorEventDefinition />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1as4opm" sourceRef="BoundaryEvent_1tq56sj" targetRef="IntermediateThrowEvent_0jsd5de" />
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_0jsd5de" name="1 minuto">
+      <bpmn:incoming>SequenceFlow_1as4opm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ksykv1</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0ksykv1" sourceRef="IntermediateThrowEvent_0jsd5de" targetRef="Task_1153zwq" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ObtenerDatos">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0lsetq8_di" bpmnElement="SequenceFlow_0lsetq8">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="259" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="CallActivity_0pzx1ug_di" bpmnElement="Task_1153zwq">
+        <dc:Bounds x="259" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0t3srbh_di" bpmnElement="SequenceFlow_0t3srbh">
+        <di:waypoint x="309" y="160" />
+        <di:waypoint x="309" y="224" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0l2qpaf_di" bpmnElement="Task_07b6q8r">
+        <dc:Bounds x="259" y="224" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1csck9z_di" bpmnElement="EndEvent_1csck9z">
+        <dc:Bounds x="441" y="246" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_09zr2vw_di" bpmnElement="SequenceFlow_09zr2vw">
+        <di:waypoint x="359" y="264" />
+        <di:waypoint x="441" y="264" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_0hskdf5_di" bpmnElement="BoundaryEvent_1tq56sj">
+        <dc:Bounds x="291" y="62" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="205" y="46" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1as4opm_di" bpmnElement="SequenceFlow_1as4opm">
+        <di:waypoint x="309" y="62" />
+        <di:waypoint x="309" y="0" />
+        <di:waypoint x="377" y="0" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_13d8ybo_di" bpmnElement="IntermediateThrowEvent_0jsd5de">
+        <dc:Bounds x="377" y="-18" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="374" y="-35" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ksykv1_di" bpmnElement="SequenceFlow_0ksykv1">
+        <di:waypoint x="395" y="18" />
+        <di:waypoint x="395" y="120" />
+        <di:waypoint x="359" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
