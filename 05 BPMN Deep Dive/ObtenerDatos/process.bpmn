@@ -6,6 +6,9 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0lsetq8" sourceRef="StartEvent_1" targetRef="Task_1153zwq" />
     <bpmn:callActivity id="Task_1153zwq" name="Obtener datos" calledElement="CheckRut">
+      <bpmn:extensionElements>
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0lsetq8</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0ksykv1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0t3srbh</bpmn:outgoing>
