@@ -1,4 +1,4 @@
-# Check Rut Improved Example
+# Obtener Datos
 
 ![BPMN Diagram](process.png)
 
