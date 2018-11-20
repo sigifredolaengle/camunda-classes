@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1eo850d" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.15.1">
+  <bpmn:process id="DMN" name="DMN" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="antiguedad" label="Antiguedad" type="long" />
+          <camunda:formField id="deudor" label="Es deudor?" type="boolean" />
+          <camunda:formField id="monto" label="Monto" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_01dwhus</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_01dwhus" sourceRef="StartEvent_1" targetRef="Task_0etjwkj" />
+    <bpmn:sequenceFlow id="SequenceFlow_0r4n32b" sourceRef="Task_0etjwkj" targetRef="Task_1c8wl7g" />
+    <bpmn:endEvent id="EndEvent_159h6in">
+      <bpmn:incoming>SequenceFlow_1akovvp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1akovvp" sourceRef="Task_1c8wl7g" targetRef="EndEvent_159h6in" />
+    <bpmn:userTask id="Task_1c8wl7g" name="Ver datos">
+      <bpmn:incoming>SequenceFlow_0r4n32b</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1akovvp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="Task_0etjwkj" name="Otorgar crédito?" camunda:resultVariable="otorga" camunda:decisionRef="decisionOtorgamiento" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>SequenceFlow_01dwhus</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0r4n32b</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="DMN">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="300" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_01dwhus_di" bpmnElement="SequenceFlow_01dwhus">
+        <di:waypoint x="336" y="120" />
+        <di:waypoint x="409" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0r4n32b_di" bpmnElement="SequenceFlow_0r4n32b">
+        <di:waypoint x="509" y="120" />
+        <di:waypoint x="559" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_159h6in_di" bpmnElement="EndEvent_159h6in">
+        <dc:Bounds x="709" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1akovvp_di" bpmnElement="SequenceFlow_1akovvp">
+        <di:waypoint x="659" y="120" />
+        <di:waypoint x="709" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0imo4fp_di" bpmnElement="Task_1c8wl7g">
+        <dc:Bounds x="559" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BusinessRuleTask_1kefc2c_di" bpmnElement="Task_0etjwkj">
+        <dc:Bounds x="409" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

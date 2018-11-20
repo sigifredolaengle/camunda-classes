@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0ftfkp6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="salarioDMN" name="Definir Salario">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Experiencia" camunda:inputVariable="experiencia">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>experiencia</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1uvuk48" label="Puesto" camunda:inputVariable="puesto">
+        <inputExpression id="LiteralExpression_0abwyy8" typeRef="string">
+          <text>puesto</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0uoqrx3">
+          <text>"Desarrollador","Analista","Recursos Humanos"</text>
+        </inputValues>
+      </input>
+      <output id="output_1" label="Salario" name="salario" typeRef="integer" />
+      <rule id="DecisionRule_1hjg4a8">
+        <inputEntry id="UnaryTests_0ku61zo">
+          <text>&lt;= 1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oha6a5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03g75xt">
+          <text>500000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16erm7v">
+        <inputEntry id="UnaryTests_01a8cil">
+          <text>&lt;= 5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_130kpbv">
+          <text>"Desarrollador","Analista"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wz4n0i">
+          <text>1500000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07fr41c">
+        <inputEntry id="UnaryTests_1c1v4uv">
+          <text>&gt; 5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xvjpuv">
+          <text>"Desarrollador"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1glfrqu">
+          <text>3000000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1337jpz">
+        <inputEntry id="UnaryTests_0bd3ne3">
+          <text>&gt; 5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10cbexs">
+          <text>"Analista"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k2nctq">
+          <text>2200000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wl1e8e">
+        <inputEntry id="UnaryTests_1uvns9s">
+          <text>]1..3]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uftn30">
+          <text>"Recursos Humanos"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jpl4y9">
+          <text>700000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c37lvh">
+        <inputEntry id="UnaryTests_1wx9u22">
+          <text>&lt;= 5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ecmqhd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00fjkm5">
+          <text>1000000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lk8n7i">
+        <inputEntry id="UnaryTests_0d1xxs7">
+          <text>&gt; 5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07qjwgy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d9zaap">
+          <text>1500000</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
