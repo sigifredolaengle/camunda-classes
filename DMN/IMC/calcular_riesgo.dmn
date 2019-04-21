@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1cl4nxm" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+  <decision id="calcular_riesgo" name="Calcular Riesgo">
+    <extensionElements>
+      <biodi:bounds x="157" y="81" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="IMC">
+        <inputExpression id="inputExpression_1" typeRef="double" expressionLanguage="JavaScript">
+          <text>peso / ((altura / 100.0) * (altura / 100.0))</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0bjjzsb" label="Actividad Física">
+        <inputExpression id="LiteralExpression_03nlqby" typeRef="string">
+          <text>actividad_fisica</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1nsp4qs">
+          <text>"nada","poca","normal","mucha"</text>
+        </inputValues>
+      </input>
+      <output id="output_1" typeRef="string" />
+      <rule id="DecisionRule_05xqrpi">
+        <inputEntry id="UnaryTests_1fu2d79">
+          <text>&lt; 18.5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mapwwx">
+          <text>"mucha"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07rgq17">
+          <text>"Riesgo medio"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1utjlqg">
+        <inputEntry id="UnaryTests_19n7cem">
+          <text>&lt; 18.5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1akjgky">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l6eouy">
+          <text>"Bajo riesgo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01d892p">
+        <inputEntry id="UnaryTests_1a0ocal">
+          <text>[18.5..25[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zt7mz8">
+          <text>"normal","mucha"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p371xf">
+          <text>"Bajo riesgo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0556xuy">
+        <inputEntry id="UnaryTests_1if6yrw">
+          <text>[18.5..25[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19wpkf9">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18vw8o3">
+          <text>"Riesgo medio"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0e4onhd">
+        <inputEntry id="UnaryTests_1g3oapi">
+          <text>[25..30[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w4e1hi">
+          <text>"normal","mucha"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11i5sxx">
+          <text>"Bajo riesgo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t78x5w">
+        <inputEntry id="UnaryTests_0x2dqn6">
+          <text>[25..30[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_031qc09">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w953zr">
+          <text>"Riesgo medio"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c2r6xp">
+        <inputEntry id="UnaryTests_01frjbs">
+          <text>&gt;= 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00k03jv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jqvjgx">
+          <text>"Riesgo alto"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
