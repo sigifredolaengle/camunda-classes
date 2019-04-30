@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0c33oxg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+  <bpmn:process id="process_tentempie" name="Elegir tentempié" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0u9wpaw</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0u9wpaw" sourceRef="StartEvent_1" targetRef="Task_0avg57q" />
+    <bpmn:sequenceFlow id="SequenceFlow_0qmgx0b" sourceRef="Task_0avg57q" targetRef="Task_1ofls9v" />
+    <bpmn:sequenceFlow id="SequenceFlow_0h2o05p" sourceRef="Task_1ofls9v" targetRef="Task_16t7s5i" />
+    <bpmn:endEvent id="EndEvent_1mnfq2l">
+      <bpmn:incoming>SequenceFlow_19j5y67</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_19j5y67" sourceRef="Task_16t7s5i" targetRef="EndEvent_1mnfq2l" />
+    <bpmn:businessRuleTask id="Task_1ofls9v" name="Seleccionar tentempié" camunda:resultVariable="resultado" camunda:decisionRef="dmn_tentempie" camunda:mapDecisionResult="singleResult">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="comida">${resultado.comida}</camunda:outputParameter>
+          <camunda:outputParameter name="bebida">${resultado.bebida}</camunda:outputParameter>
+          <camunda:outputParameter name="mensaje">${resultado.mensaje}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0qmgx0b</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0h2o05p</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:userTask id="Task_0avg57q" name="Ingresar datos">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="dia" label="Día de la semana" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+            <camunda:value id="lunes" name="Lunes" />
+            <camunda:value id="martes" name="Martes" />
+            <camunda:value id="miercoles" name="Miércoles" />
+            <camunda:value id="jueves" name="Jueves" />
+            <camunda:value id="viernes" name="Viernes" />
+            <camunda:value id="sabado" name="Sábado" />
+            <camunda:value id="domingo" name="Domingo" />
+          </camunda:formField>
+          <camunda:formField id="hora" label="Hora del dia" type="long" defaultValue="12">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+              <camunda:constraint name="min" config="1" />
+              <camunda:constraint name="max" config="24" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="hambre" label="Cuanta hambre tienes?" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+            <camunda:value id="poca" name="Poca" />
+            <camunda:value id="media" name="Media" />
+            <camunda:value id="mucha" name="Mucha" />
+          </camunda:formField>
+          <camunda:formField id="trabajo" label="Aún no terminas de trabajar?" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0u9wpaw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0qmgx0b</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_16t7s5i" name="Mostrar resultados">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="comida" label="Comida" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="bebida" label="Bebida" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="mensaje" label="Mensaje" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0h2o05p</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_19j5y67</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process_tentempie">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0u9wpaw_di" bpmnElement="SequenceFlow_0u9wpaw">
+        <di:waypoint x="215" y="121" />
+        <di:waypoint x="265" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qmgx0b_di" bpmnElement="SequenceFlow_0qmgx0b">
+        <di:waypoint x="365" y="121" />
+        <di:waypoint x="415" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0h2o05p_di" bpmnElement="SequenceFlow_0h2o05p">
+        <di:waypoint x="515" y="121" />
+        <di:waypoint x="565" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1mnfq2l_di" bpmnElement="EndEvent_1mnfq2l">
+        <dc:Bounds x="715" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19j5y67_di" bpmnElement="SequenceFlow_19j5y67">
+        <di:waypoint x="665" y="121" />
+        <di:waypoint x="715" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_00162mz_di" bpmnElement="Task_1ofls9v">
+        <dc:Bounds x="415" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0auq35u_di" bpmnElement="Task_0avg57q">
+        <dc:Bounds x="265" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0hvvep9_di" bpmnElement="Task_16t7s5i">
+        <dc:Bounds x="565" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
