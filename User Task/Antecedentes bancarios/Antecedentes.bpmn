@@ -1,44 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1ipt7vg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
   <bpmn:collaboration id="Collaboration_1p4ebp5">
-    <bpmn:participant id="Participant_09cwyxn" name="Multitienda Falaferia" processRef="Process_18vufww" />
+    <bpmn:participant id="Participant_09cwyxn" name="Banco" processRef="Process_18vufww" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18vufww" isExecutable="true">
     <bpmn:laneSet id="LaneSet_079uy95">
-      <bpmn:lane id="Lane_11lfq7y" name="Departamento Electrónica">
+      <bpmn:lane id="Lane_11lfq7y" name="Ejecutivo de riesgo">
         <bpmn:flowNodeRef>Task_0opgesl</bpmn:flowNodeRef>
       </bpmn:lane>
-      <bpmn:lane id="Lane_1s9ajta" name="Contador">
-        <bpmn:flowNodeRef>ExclusiveGateway_1yz1zi0</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ExclusiveGateway_04izz84</bpmn:flowNodeRef>
+      <bpmn:lane id="Lane_1s9ajta" name="Ejecutivo de cuentas">
         <bpmn:flowNodeRef>EndEvent_1cc36yl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_002lr5s</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_128np3w</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1pu8g2t</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_04izz84</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1yz1zi0</bpmn:flowNodeRef>
       </bpmn:lane>
-      <bpmn:lane id="Lane_1yjo7kt" name="Departamento Línea Blanca">
+      <bpmn:lane id="Lane_1yjo7kt" name="Ejecutivo de seguimiento">
         <bpmn:flowNodeRef>Task_0cnpvmu</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:inclusiveGateway id="ExclusiveGateway_1yz1zi0">
-      <bpmn:incoming>SequenceFlow_0y69dzj</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0oe5tob</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1e27sj4</bpmn:outgoing>
-    </bpmn:inclusiveGateway>
-    <bpmn:inclusiveGateway id="ExclusiveGateway_04izz84">
-      <bpmn:incoming>SequenceFlow_0e7e0x9</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_16oqg9n</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1mwk1ch</bpmn:outgoing>
-    </bpmn:inclusiveGateway>
     <bpmn:endEvent id="EndEvent_1cc36yl">
       <bpmn:incoming>SequenceFlow_14ld15e</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Task_0opgesl" name="Enviar Balance Electrónica" camunda:candidateGroups="Electrónica">
+    <bpmn:userTask id="Task_0opgesl" name="Enviar nivel de deuda" camunda:candidateGroups="Electrónica">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="balance-electronica" label="Balance" type="long" defaultValue="0">
+          <camunda:formField id="ndeuda" label="Balance" type="long" defaultValue="0">
             <camunda:validation>
               <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cliente" label="Rut del cliente" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
         </camunda:formData>
@@ -46,10 +41,15 @@
       <bpmn:incoming>SequenceFlow_0oe5tob</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_16oqg9n</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_0cnpvmu" name="Enviar Balance Línea Blanca" camunda:candidateGroups="Línea Blanca">
+    <bpmn:userTask id="Task_0cnpvmu" name="Enviar comportamiento anterior" camunda:candidateGroups="Línea Blanca">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_1bj8e41" label="Balance" type="long" defaultValue="0">
+          <camunda:formField id="anterior" label="Comportamiento bueno?" type="boolean" defaultValue="0">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cliente" label="Rut del cliente" type="long">
             <camunda:validation>
               <camunda:constraint name="required" />
             </camunda:validation>
@@ -59,15 +59,15 @@
       <bpmn:incoming>SequenceFlow_1e27sj4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0e7e0x9</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_002lr5s" name="Agregar a libro contable" camunda:assignee="${starter}">
+    <bpmn:userTask id="Task_002lr5s" name="Decidir otorgamiento" camunda:assignee="${starter}">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="balance-electronica" label="Balance Electrónica" type="long">
+          <camunda:formField id="ndeuda" label="Nivel de deuda" type="long">
             <camunda:validation>
               <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="balance-linea-blanca" label="Balace Línea Blanca" type="long">
+          <camunda:formField id="anterior" label="Comportamiento bueno?" type="boolean">
             <camunda:validation>
               <camunda:constraint name="readonly" />
             </camunda:validation>
@@ -77,11 +77,16 @@
       <bpmn:incoming>SequenceFlow_1mwk1ch</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_14ld15e</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_128np3w" name="Solicitar balances" camunda:assignee="${starter}">
+    <bpmn:userTask id="Task_128np3w" name="Solicitar antecedentes bancarios" camunda:assignee="${starter}">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="electronica" label="Departamento Electrónica" type="boolean" />
-          <camunda:formField id="linea-blanca" label="Línea Blanca" type="boolean" />
+          <camunda:formField id="deuda" label="Consultar nivel deuda?" type="boolean" />
+          <camunda:formField id="comportamiento" label="Línea Blanca" type="boolean" />
+          <camunda:formField id="cliente" label="Rut del cliente (sin puntos ni guion)" type="long">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0vqy801</bpmn:incoming>
@@ -92,16 +97,26 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0vqy801" sourceRef="StartEvent_1pu8g2t" targetRef="Task_128np3w" />
     <bpmn:sequenceFlow id="SequenceFlow_0y69dzj" sourceRef="Task_128np3w" targetRef="ExclusiveGateway_1yz1zi0" />
-    <bpmn:sequenceFlow id="SequenceFlow_0oe5tob" name="Incluye balance Electrónica" sourceRef="ExclusiveGateway_1yz1zi0" targetRef="Task_0opgesl">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${electronica}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="SequenceFlow_0oe5tob" name="Solicita evaluar nivel deuda" sourceRef="ExclusiveGateway_1yz1zi0" targetRef="Task_0opgesl">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${deuda}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1e27sj4" name="Incluye balance Línea Blanca" sourceRef="ExclusiveGateway_1yz1zi0" targetRef="Task_0cnpvmu">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${linea-blanca}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="SequenceFlow_1e27sj4" name="Solicita evaluar comportamiento" sourceRef="ExclusiveGateway_1yz1zi0" targetRef="Task_0cnpvmu">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${comportamiento}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0e7e0x9" sourceRef="Task_0cnpvmu" targetRef="ExclusiveGateway_04izz84" />
     <bpmn:sequenceFlow id="SequenceFlow_16oqg9n" sourceRef="Task_0opgesl" targetRef="ExclusiveGateway_04izz84" />
     <bpmn:sequenceFlow id="SequenceFlow_1mwk1ch" sourceRef="ExclusiveGateway_04izz84" targetRef="Task_002lr5s" />
     <bpmn:sequenceFlow id="SequenceFlow_14ld15e" sourceRef="Task_002lr5s" targetRef="EndEvent_1cc36yl" />
+    <bpmn:inclusiveGateway id="ExclusiveGateway_04izz84">
+      <bpmn:incoming>SequenceFlow_16oqg9n</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0e7e0x9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1mwk1ch</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:inclusiveGateway id="ExclusiveGateway_1yz1zi0">
+      <bpmn:incoming>SequenceFlow_0y69dzj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1e27sj4</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0oe5tob</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1p4ebp5">
@@ -128,15 +143,12 @@
         <di:waypoint x="430" y="305" />
         <di:waypoint x="494" y="305" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="InclusiveGateway_0ts3q0w_di" bpmnElement="ExclusiveGateway_1yz1zi0">
-        <dc:Bounds x="494" y="280" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0oe5tob_di" bpmnElement="SequenceFlow_0oe5tob">
         <di:waypoint x="519" y="280" />
         <di:waypoint x="519" y="142" />
         <di:waypoint x="569" y="142" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="439" y="177" width="76" height="27" />
+          <dc:Bounds x="441" y="177" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1e27sj4_di" bpmnElement="SequenceFlow_1e27sj4">
@@ -144,7 +156,7 @@
         <di:waypoint x="519" y="441" />
         <di:waypoint x="569" y="441" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="436" y="392" width="76" height="27" />
+          <dc:Bounds x="435" y="392" width="78" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0e7e0x9_di" bpmnElement="SequenceFlow_0e7e0x9">
@@ -152,9 +164,6 @@
         <di:waypoint x="735" y="441" />
         <di:waypoint x="735" y="330" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="InclusiveGateway_1nen8me_di" bpmnElement="ExclusiveGateway_04izz84">
-        <dc:Bounds x="710" y="280" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_16oqg9n_di" bpmnElement="SequenceFlow_16oqg9n">
         <di:waypoint x="669" y="142" />
         <di:waypoint x="735" y="142" />
@@ -182,6 +191,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_020ua0p_di" bpmnElement="Task_002lr5s">
         <dc:Bounds x="801" y="265" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="InclusiveGateway_1nen8me_di" bpmnElement="ExclusiveGateway_04izz84">
+        <dc:Bounds x="710" y="280" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="InclusiveGateway_0ts3q0w_di" bpmnElement="ExclusiveGateway_1yz1zi0">
+        <dc:Bounds x="494" y="280" width="50" height="50" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
