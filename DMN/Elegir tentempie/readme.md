@@ -10,81 +10,86 @@
 |     5 | **Modelo**         | 1. Sin seleccionar ningún objeto, asegure que el 'General' esté seleccionada la opción 'Executable'.<br> 2. Ingresar los siguentes datos: <br>**Id** = 'process_tentempie' <br> **Name** = 'Elegir tentempié'.                                                                                                                                                                                                                                                                                                               |
 
 # DMN
-# Diagrama de decisión
+
+## Diagrama de decisión
+
 ![DMN Table](dmn.png)
 
 Crear las tres tablas de decisión como aparece en la figura.
 Seleccionar cada una y cambiar su tipo presionando en la llave inglesa a "Decision Table".
 
-# DMN Seleccionar Comida
+## DMN Seleccionar Comida
 
 ![DMN Table](dmn1.png)
 
 Llenar las tablas como aparece en la figura.
 
-Información importante:
+### Información importante:
 
 | Id         | Name               | Hit Policy |
 | :---:      | :---:              | :---:      |
 | dmn_comida | Seleccionar comida | U (UNIQUE) |
 
-Entradas
+### Entradas
 
 | Columna | Input Label     | Input Expression | Type    |
 |   :---: | :---:           | :---:            | :---:   |
 |       1 | Nivel de hambre | hambre           | string  |
 |       2 | Hora            | hora             | integer |
 
-Salidas
+### Salidas
+
 | Columna | Output Label | Output Name | Type   |
 | :---:   | :---:        | :---:       | :---:  |
 | 1       | Comida       | comida      | string |
 
-# DMN Seleccion Bebida
+## DMN Seleccion Bebida
 
 ![DMN Table](dmn2.png)
 
 Llenar las tablas como aparece en la figura.
 
-Información importante:
+### Información importante:
 
 | Id         | Name               | Hit Policy |
 | :---:      | :---:              | :---:      |
 | dmn_bebida | Seleccionar bebida | U (UNIQUE) |
 
-Entradas
+### Entradas
 
 | Columna | Input Label              | Input Expression | Type   |
 | :---:   | :---:        | :---:       | :---:  |
 |       1 | Día de la semana         | dia              | string |
 |       2 | Queda trabajo por hacer? | trabajo          | boolean |
 
-Salidas
+### Salidas
+
 | Columna | Output Label | Output Name | Type   |
 | :---:   | :---:        | :---:       | :---:  |
 |       1 | Bebida       | bebida      | string |
 
 
-# DMN Tentempié
+## DMN Tentempié
 
 ![DMN Table](dmn3.png)
 
 Llenar las tablas como aparece en la figura.
 
-Información importante:
+### Información importante:
 
 | Id            | Name      | Hit Policy |
 | :---:         | :---:     | :---:      |
 | dmn_tentempie | Tentempié | F (UNIQUE) |
 
-Entradas
+### Entradas
 
 | Columna | Input Label | Input Expression | Type    |
 | :---:   | :---:        | :---:       | :---:  |
 |       1 | Comida      | comida           | string  |
 |       2 | Bebida      | bebida           | string  |
 
-Salidas
+### Salidas
+
 | Columna | Output Label | Output Name | Type   |
 | :---:   | :---:        | :---:       | :---:  |
 |       1 | Mensaje      | mensaje     | string |
