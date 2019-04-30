@@ -1,6 +1,7 @@
 # Solicitar Insumo
 
 ![BPMN Diagram](process.png)
+![DMN Table](dmn.png)
 
 |   Nr. | Tópico                            | Actividad                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | :---: | :---                              | :---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
