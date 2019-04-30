@@ -1,5 +1,5 @@
 # Proceso BPM
-![BPMN Diagram](process.png)
+![BPMN Diagram](img/process.png)
 
 |   Nr. | Tópico                            | Actividad                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | :---: | :---                              | :---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -13,14 +13,14 @@
 
 ## Diagrama de decisión
 
-![DMN Table](dmn.png)
+![DMN Table](img/dmn.png)
 
 Crear las tres tablas de decisión como aparece en la figura.
 Seleccionar cada una y cambiar su tipo presionando en la llave inglesa a "Decision Table".
 
 ## DMN Seleccionar Comida
 
-![DMN Table](dmn1.png)
+![DMN Table](img/dmn1.png)
 
 Llenar las tablas como aparece en la figura.
 
@@ -45,7 +45,7 @@ Llenar las tablas como aparece en la figura.
 
 ## DMN Seleccion Bebida
 
-![DMN Table](dmn2.png)
+![DMN Table](img/dmn2.png)
 
 Llenar las tablas como aparece en la figura.
 
@@ -71,7 +71,7 @@ Llenar las tablas como aparece en la figura.
 
 ## DMN Tentempié
 
-![DMN Table](dmn3.png)
+![DMN Table](img/dmn3.png)
 
 Llenar las tablas como aparece en la figura.
 
