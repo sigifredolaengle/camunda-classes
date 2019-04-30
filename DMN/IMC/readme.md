@@ -1,7 +1,6 @@
-# Solicitar Insumo
+# Proceso BPM
 
-![BPMN Diagram](process.png)
-![DMN Table](dmn.png)
+![BPMN Diagram](img/process.png)
 
 |   Nr. | Tópico                            | Actividad                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | :---: | :---                              | :---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -10,3 +9,31 @@
 |     3 | **'Ver resultado' User Task** | 1. En la pestaña 'General', configura el parámetro **Assignee** = '${starter}'.<br>2. En la pestaña 'Forms', agrega una variable del siguiente modo:<br>2a. **ID** = 'resultado', **Type** = 'string', **Label** = 'Nivel de riesgo'. <br> **Validation** <br> **name** = 'readonly'.                                                                                                                                                                                                    |
 |     4 | **'Calcular riesgo' Business Rule Task** | 1. En la pestaña 'General', configura el parámetro **Implementation** = 'DMN', **Desicion Ref** = 'calcular_riesgo', **Result Variable** = 'resultado', **Map Desicion Result** = 'singleEntry' |
 |     5 | **Modelo**         | 1. Sin seleccionar ningún objeto, asegure que el 'General' esté seleccionada la opción 'Executable'.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+
+# DMN
+
+![DMN Table](img/dmn.png)
+
+Llenar las tablas como aparece en la figura.
+
+### Información importante:
+
+| Id              | Name            | Hit Policy |
+| :---:           | :---:           | :---:      |
+| calcular_riesgo | Calcular Riesgo | F (FIRST)  |
+
+### Entradas
+
+| Columna | Input Label      | Input Expression                             | Expression Language | Type   |
+|   :---: | :---:            | :---:                                        | :---:               | :---:  |
+|       1 | IMC              | peso / ((altura / 100.0) * (altura / 100.0)) | JavaScript          | double |
+|       2 | Actividad Física | actividad_fisica                             |                     | string |
+
+Para poder agregar **Expression Language** en la primera columna basta con presionar **change to script**
+bajo **Input Expression**.
+
+### Salidas
+
+| Columna | Output Label | Output Name | Type   |
+| :---:   | :---:        | :---:       | :---:  |
+| 1       | Resultado | resultado | string |
