@@ -171,8 +171,6 @@
         </inputExpression>
       </input>
       <output id="OutputClause_14q7t9q" label="Mensaje" name="mensaje" typeRef="string" />
-      <output id="OutputClause_1ks5vz9" label="Bebida" name="bebida" typeRef="string" />
-      <output id="OutputClause_1qj0chv" label="Comida" name="comida" typeRef="string" />
       <rule id="DecisionRule_10xp2da">
         <inputEntry id="UnaryTests_1v2j9o1">
           <text>"Nada"</text>
@@ -183,12 +181,6 @@
         <outputEntry id="LiteralExpression_0uso8p5">
           <text>"Come algo; no bebas con el estómago vacío!"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_09ekjhf">
-          <text>bebida</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_00w4eda">
-          <text>comida</text>
-        </outputEntry>
       </rule>
       <rule id="DecisionRule_10vpe0g">
         <inputEntry id="UnaryTests_0wc9v26">
@@ -198,13 +190,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0w73kzr">
-          <text>"Buen provecho"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0az8c1n">
-          <text>bebida</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0p393js">
-          <text>comida</text>
+          <text>"Buen provecho, tu plato es ".concat(comida).concat(" con ").concat(bebida)</text>
         </outputEntry>
       </rule>
     </decisionTable>

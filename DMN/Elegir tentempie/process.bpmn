@@ -11,14 +11,7 @@
       <bpmn:incoming>SequenceFlow_19j5y67</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_19j5y67" sourceRef="Task_16t7s5i" targetRef="EndEvent_1mnfq2l" />
-    <bpmn:businessRuleTask id="Task_1ofls9v" name="Seleccionar tentempié" camunda:resultVariable="resultado" camunda:decisionRef="dmn_tentempie" camunda:mapDecisionResult="singleResult">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="comida">${resultado.comida}</camunda:outputParameter>
-          <camunda:outputParameter name="bebida">${resultado.bebida}</camunda:outputParameter>
-          <camunda:outputParameter name="mensaje">${resultado.mensaje}</camunda:outputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
+    <bpmn:businessRuleTask id="Task_1ofls9v" name="Seleccionar tentempié" camunda:resultVariable="mensaje" camunda:decisionRef="dmn_tentempie" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>SequenceFlow_0qmgx0b</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0h2o05p</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -61,16 +54,6 @@
     <bpmn:userTask id="Task_16t7s5i" name="Mostrar resultados">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="comida" label="Comida" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="bebida" label="Bebida" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
           <camunda:formField id="mensaje" label="Mensaje" type="string">
             <camunda:validation>
               <camunda:constraint name="readonly" />
