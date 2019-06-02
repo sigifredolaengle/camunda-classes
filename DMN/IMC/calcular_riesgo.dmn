@@ -18,7 +18,7 @@
           <text>"nada","poca","normal","mucha"</text>
         </inputValues>
       </input>
-      <output id="output_1" typeRef="string" />
+      <output id="output_1" label="Resultado" name="resultado" typeRef="string" />
       <rule id="DecisionRule_05xqrpi">
         <inputEntry id="UnaryTests_1fu2d79">
           <text>&lt; 18.5</text>

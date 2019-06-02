@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1n3gip4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+  <decision id="dmn_comida" name="Seleccionar comida">
+    <extensionElements>
+      <biodi:bounds x="198" y="70" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="Nivel de habre">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text>hambre</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_11b3vdk">
+          <text>"poca","media","mucha"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1ddp2rg" label="Hora">
+        <inputExpression id="LiteralExpression_1njb3nv" typeRef="integer">
+          <text>hora</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Comida" name="comida" typeRef="string" />
+      <rule id="DecisionRule_11gj4cj">
+        <inputEntry id="UnaryTests_0d9bcjr">
+          <text>"poca"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w9weda">
+          <text>&lt;= 12</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gbsiwh">
+          <text>"Fruta"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wxmbpt">
+        <inputEntry id="UnaryTests_18bmdr2">
+          <text>"media","mucha"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s481yl">
+          <text>&lt;= 12</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16lta42">
+          <text>"Avena con leche"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uy82g1">
+        <inputEntry id="UnaryTests_19qjsdw">
+          <text>"media","mucha"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cq6vrc">
+          <text>[12..15]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ahozwp">
+          <text>"Almuerzo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xcqxz6">
+        <inputEntry id="UnaryTests_0spybs6">
+          <text>"poca","media"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17py6e2">
+          <text>&gt; 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dy58b0">
+          <text>"Tostadas"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14w9hm9">
+        <inputEntry id="UnaryTests_1a9esez">
+          <text>"mucha"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p3xhf9">
+          <text>&gt; 15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nzyekt">
+          <text>"Lentejas"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04mtlvw">
+        <inputEntry id="UnaryTests_0yfq8kl">
+          <text>"poca"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ibfvlz">
+          <text>&gt; 12</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bys4ox">
+          <text>"Nada"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="dmn_bebida" name="Seleccionar bebida">
+    <extensionElements>
+      <biodi:bounds x="588" y="71" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="DecisionTable_1izmmaj">
+      <input id="InputClause_1pk4rkb" label="Día de la semana">
+        <inputExpression id="LiteralExpression_0erzs0l" typeRef="string">
+          <text>dia</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_11c3wls">
+          <text>"lunes","martes","miercoles","jueves","viernes","sabado","domingo"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1cl856g" label="Queda trabajo por hacer?">
+        <inputExpression id="LiteralExpression_075es7q" typeRef="boolean">
+          <text>trabajo</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1ozbnpx" label="Bebida" name="bebida" typeRef="string" />
+      <rule id="DecisionRule_0zywnv0">
+        <inputEntry id="UnaryTests_1j3bw3x">
+          <text>"lunes","martes","miercoles","jueves","viernes"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00i2jl0">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1enmpol">
+          <text>"Agua"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ltz08e">
+        <inputEntry id="UnaryTests_1agtmyq">
+          <text>"sabado","domingo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05v1zc3">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wghu8v">
+          <text>"Cerveza sin alcohol"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z12nnc">
+        <inputEntry id="UnaryTests_1tnkdj2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1udvlra">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xvwn3l">
+          <text>"Cerveza"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="dmn_tentempie" name="Tentempié">
+    <extensionElements>
+      <biodi:bounds x="397" y="280" width="180" height="80" />
+      <biodi:edge source="dmn_comida">
+        <biodi:waypoints x="326" y="150" />
+        <biodi:waypoints x="449" y="280" />
+      </biodi:edge>
+      <biodi:edge source="dmn_bebida">
+        <biodi:waypoints x="643" y="151" />
+        <biodi:waypoints x="528" y="280" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#dmn_comida" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#dmn_bebida" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0q1tbu5" hitPolicy="FIRST">
+      <input id="InputClause_0jfpmxi" label="Comida">
+        <inputExpression id="LiteralExpression_0ppzf12" typeRef="string">
+          <text>comida</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0jhn2gp" label="Bebida">
+        <inputExpression id="LiteralExpression_0jpf18j" typeRef="string">
+          <text>bebida</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_14q7t9q" label="Mensaje" name="mensaje" typeRef="string" />
+      <rule id="DecisionRule_10xp2da">
+        <inputEntry id="UnaryTests_1v2j9o1">
+          <text>"Nada"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11pnt9r">
+          <text>"Cerveza"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uso8p5">
+          <text>"Come algo; no bebas con el estómago vacío!"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10vpe0g">
+        <inputEntry id="UnaryTests_0wc9v26">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y9egzk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0w73kzr">
+          <text>"Buen provecho, tu plato es ".concat(comida).concat(" con ").concat(bebida)</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
