@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1n3gip4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+  <decision id="dmn_empleabilidad" name="Empleabilidad">
+    <extensionElements>
+      <biodi:bounds x="156" y="81" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="DecisionTable_0q1tbu5" hitPolicy="FIRST">
+      <input id="InputClause_0jfpmxi" label="Carrera">
+        <inputExpression id="LiteralExpression_0ppzf12" typeRef="string">
+          <text>carrera</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0g1ar80" label="Empleabilidad" name="empleabilidad" typeRef="integer" />
+      <output id="OutputClause_0x9c0c0" label="Sueldo Inicial" name="sueldo" typeRef="integer" />
+      <rule id="DecisionRule_10xp2da">
+        <inputEntry id="UnaryTests_1v2j9o1">
+          <text>"computacion"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_102p9ya">
+          <text>97</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s0deci">
+          <text>1500000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10vpe0g">
+        <inputEntry id="UnaryTests_0wc9v26">
+          <text>"comercial"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03rlgdy">
+          <text>80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rkjszx">
+          <text>700000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tdw9tk">
+        <inputEntry id="UnaryTests_1h92sag">
+          <text>"administracion"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y9xcjj">
+          <text>78</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wmf1qe">
+          <text>550000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uy1zh8">
+        <inputEntry id="UnaryTests_1ebb9l1">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hk2gw9">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ei3q90">
+          <text>200000</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
