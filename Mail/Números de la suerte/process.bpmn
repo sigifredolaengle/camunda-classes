@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1370ff5" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+  <bpmn:process id="NumerosSuerte" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0yy57ef</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0yy57ef" sourceRef="StartEvent_1" targetRef="Task_0ge2bl6" />
+    <bpmn:sequenceFlow id="SequenceFlow_1m2mrt8" sourceRef="Task_0ge2bl6" targetRef="Task_14ltk0m" />
+    <bpmn:subProcess id="Task_14ltk0m">
+      <bpmn:incoming>SequenceFlow_1m2mrt8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1r5ys2v</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${mails}" camunda:elementVariable="mail" />
+      <bpmn:startEvent id="StartEvent_1yy04rk">
+        <bpmn:outgoing>SequenceFlow_19sfeo1</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="SequenceFlow_19sfeo1" sourceRef="StartEvent_1yy04rk" targetRef="Task_1r1aj93" />
+      <bpmn:sequenceFlow id="SequenceFlow_1iscn7v" sourceRef="Task_04tjfog" targetRef="Task_1d4wqki" />
+      <bpmn:endEvent id="EndEvent_06mgxdz">
+        <bpmn:incoming>SequenceFlow_1jknw39</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="SequenceFlow_1jknw39" sourceRef="Task_1d4wqki" targetRef="EndEvent_06mgxdz" />
+      <bpmn:userTask id="Task_1r1aj93" name="Revisar correo">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="coreo" label="Solicitud de números" type="string" defaultValue="${mail.getText()}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_19sfeo1</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0llo14v</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sendTask id="Task_04tjfog" name="Enviar números de la suerte">
+        <bpmn:extensionElements>
+          <camunda:connector>
+            <camunda:inputOutput>
+              <camunda:inputParameter name="to">${mail.getFrom()}</camunda:inputParameter>
+              <camunda:inputParameter name="subject">${'RE:'.concat(mail.getSubject())}</camunda:inputParameter>
+              <camunda:inputParameter name="text">
+                <camunda:script scriptFormat="freemarker">Buenos días
+
+Sus números de la suerete para hoy son ${x}, ${y} y ${z}.
+
+Saludos!</camunda:script>
+              </camunda:inputParameter>
+            </camunda:inputOutput>
+            <camunda:connectorId>mail-send</camunda:connectorId>
+          </camunda:connector>
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_0kyntb1</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_1iscn7v</bpmn:outgoing>
+      </bpmn:sendTask>
+      <bpmn:sendTask id="Task_1d4wqki" name="Borrar correo">
+        <bpmn:extensionElements>
+          <camunda:connector>
+            <camunda:inputOutput>
+              <camunda:inputParameter name="mails">
+                <camunda:list>
+                  <camunda:value>${mail}</camunda:value>
+                </camunda:list>
+              </camunda:inputParameter>
+            </camunda:inputOutput>
+            <camunda:connectorId>mail-delete</camunda:connectorId>
+          </camunda:connector>
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_1iscn7v</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_1jknw39</bpmn:outgoing>
+      </bpmn:sendTask>
+      <bpmn:sequenceFlow id="SequenceFlow_0llo14v" sourceRef="Task_1r1aj93" targetRef="Task_0qdkd4j" />
+      <bpmn:sequenceFlow id="SequenceFlow_0kyntb1" sourceRef="Task_0qdkd4j" targetRef="Task_04tjfog" />
+      <bpmn:userTask id="Task_0qdkd4j" name="Ingresar números de la suerte">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="x" label="Primer número" type="long">
+              <camunda:validation>
+                <camunda:constraint name="required" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="y" label="Segundo número" type="long">
+              <camunda:validation>
+                <camunda:constraint name="required" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="z" label="Tercer número" type="long">
+              <camunda:validation>
+                <camunda:constraint name="required" />
+              </camunda:validation>
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_0llo14v</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0kyntb1</bpmn:outgoing>
+      </bpmn:userTask>
+    </bpmn:subProcess>
+    <bpmn:endEvent id="EndEvent_04ii7ti">
+      <bpmn:incoming>SequenceFlow_1r5ys2v</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1r5ys2v" sourceRef="Task_14ltk0m" targetRef="EndEvent_04ii7ti" />
+    <bpmn:sendTask id="Task_0ge2bl6" name="Revisar Inbox" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:outputParameter name="mails">${mails}</camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>mail-poll</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0yy57ef</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1m2mrt8</bpmn:outgoing>
+    </bpmn:sendTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="NumerosSuerte">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="215" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0yy57ef_di" bpmnElement="SequenceFlow_0yy57ef">
+        <di:waypoint x="215" y="233" />
+        <di:waypoint x="265" y="233" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1m2mrt8_di" bpmnElement="SequenceFlow_1m2mrt8">
+        <di:waypoint x="365" y="233" />
+        <di:waypoint x="419" y="233" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SubProcess_0s170d0_di" bpmnElement="Task_14ltk0m" isExpanded="true">
+        <dc:Bounds x="419" y="121" width="792" height="224" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1yy04rk_di" bpmnElement="StartEvent_1yy04rk">
+        <dc:Bounds x="439" y="205" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19sfeo1_di" bpmnElement="SequenceFlow_19sfeo1">
+        <di:waypoint x="475" y="223" />
+        <di:waypoint x="525" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1iscn7v_di" bpmnElement="SequenceFlow_1iscn7v">
+        <di:waypoint x="959" y="223" />
+        <di:waypoint x="1012" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_06mgxdz_di" bpmnElement="EndEvent_06mgxdz">
+        <dc:Bounds x="1154" y="205" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1jknw39_di" bpmnElement="SequenceFlow_1jknw39">
+        <di:waypoint x="1112" y="223" />
+        <di:waypoint x="1154" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_04ii7ti_di" bpmnElement="EndEvent_04ii7ti">
+        <dc:Bounds x="1267" y="215" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1r5ys2v_di" bpmnElement="SequenceFlow_1r5ys2v">
+        <di:waypoint x="1211" y="233" />
+        <di:waypoint x="1267" y="233" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_0ukp3ty_di" bpmnElement="Task_0ge2bl6">
+        <dc:Bounds x="265" y="193" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_14th51z_di" bpmnElement="Task_1r1aj93">
+        <dc:Bounds x="525" y="183" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_1kp7nb4_di" bpmnElement="Task_04tjfog">
+        <dc:Bounds x="859" y="183" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_0sy4hpr_di" bpmnElement="Task_1d4wqki">
+        <dc:Bounds x="1012" y="183" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0llo14v_di" bpmnElement="SequenceFlow_0llo14v">
+        <di:waypoint x="625" y="223" />
+        <di:waypoint x="694" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0kyntb1_di" bpmnElement="SequenceFlow_0kyntb1">
+        <di:waypoint x="794" y="223" />
+        <di:waypoint x="859" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_13emleq_di" bpmnElement="Task_0qdkd4j">
+        <dc:Bounds x="694" y="183" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
