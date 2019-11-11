@@ -1,4 +1,4 @@
-#Request
+# Request
 ## Request URL
 http://localhost:8080/engine-rest/process-definition/key/CheckRisk2/start
 
@@ -6,15 +6,18 @@ http://localhost:8080/engine-rest/process-definition/key/CheckRisk2/start
 POST
 
 # Headers
-## Content-Type
-application/json
+
+KEY | VALUE
+--- | ---
+Content-Type | application/json
+
 
 # Body
 # Body Type
 raw
 
 ## Body Content
-´´´javascript
+```javascript
 {
     "variables": {
         "age": {
@@ -31,11 +34,11 @@ raw
         }
     }
 }
-´´´
+```
 
 # Pre-request Script
 
-´´´javascript
+```javascript
 // Helper functions
 
 // Get a random element from an array
@@ -73,4 +76,4 @@ car_type = get_random(car_types[car_manufacturer]);
 pm.globals.set("age", age);
 pm.globals.set("car_manufacturer", car_manufacturer);
 pm.globals.set("car_type", car_type);
-´´´
+```
