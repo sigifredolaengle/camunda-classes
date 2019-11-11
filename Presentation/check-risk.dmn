@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_0z085kx" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
+  <decision id="checkRisk_en" name="Decision 1">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Age">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ivf78c" label="Car manufacturer">
+        <inputExpression id="LiteralExpression_1nfovq5" typeRef="string">
+          <text>carManufacturer</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_110pfh8" label="Car type">
+        <inputExpression id="LiteralExpression_1brp7wb" typeRef="string">
+          <text>carType</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Risk" name="riskLevel" typeRef="string" />
+      <rule id="DecisionRule_1alr386">
+        <inputEntry id="UnaryTests_0yjggdy">
+          <text>&lt;= 25</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wp0kfv">
+          <text>"Porsche"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u6mvah">
+          <text>"911"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u0t34i">
+          <text>"red"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a8g60u">
+        <inputEntry id="UnaryTests_0ipo5gm">
+          <text>&lt;= 25</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jx04lo">
+          <text>"BMW"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0028wos">
+          <text>"X3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12pm1j2">
+          <text>"red"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xogj5b">
+        <inputEntry id="UnaryTests_12vh84l">
+          <text>&lt;= 25</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09zzif9">
+          <text>"Audi"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15cgepz">
+          <text>"A6", "A8"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rrtj5u">
+          <text>"red"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0f4umbn">
+        <inputEntry id="UnaryTests_05gouli">
+          <text>&lt;= 21, &gt;=75</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n4wfgv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_178i3ez">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02u3b3k">
+          <text>"yellow"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zugesn">
+        <inputEntry id="UnaryTests_0emn54v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n4302u">
+          <text>"BMW", "Porsche"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0intc5s">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lxbicn">
+          <text>"yellow"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wcn6vj">
+        <inputEntry id="UnaryTests_0tfzy6t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fw56ud">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ccazhi">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z8ivln">
+          <text>"green"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
