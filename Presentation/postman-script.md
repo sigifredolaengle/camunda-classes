@@ -1,8 +1,11 @@
 # Request
+
 ## Request URL
+
 http://localhost:8080/engine-rest/process-definition/key/CheckRisk2/start
 
 ## Request Type
+
 POST
 
 # Headers
@@ -13,10 +16,15 @@ Content-Type | application/json
 
 
 # Body
-# Body Type
+
+## Body Type
+
 raw
 
 ## Body Content
+
+Replace the value of **email** with your own email address.
+
 ```javascript
 {
     "variables": {
@@ -31,6 +39,10 @@ raw
         "carType": {
             "value": "{{car_type}}",
             "type": "string"
+        },
+        "email": {
+        	"value": "YOUR EMAIL HERE!!!",
+        	"type": "string"
         }
     }
 }
